@@ -39,7 +39,7 @@ O modelo inicial agora é distribuído em gzip (44,2 MB) e descompactado no nave
 | Orbitar | Arrastar com botão esquerdo para girar, roda para zoom, botão direito para deslocar. Enquadrar: edifício inteiro. Seleção: enquadrar elemento. Topo, Frente e Lado: vistas com transição. |
 | Caminhar | Escolha Caminhar e depois Entrar no modelo. WASD, mouse, Shift para correr, Espaço para saltar com apoio, C para agachar, R para ponto seguro, Esc para pausar. |
 | Captura bloqueada | Clique em **Usar arraste para olhar**. WASD continua disponível; arraste a viewport para mudar a direção. Também há link para abrir em aba própria. |
-| Portas | Em Caminhar, aproxime-se a até 2 m e mire na porta: **F** abre/fecha. No celular, toque no botão contextual. A folha mantém colisão ao abrir; se encontrar o personagem, para e permite tentar novamente. |
+| Portas | Em Caminhar, aproxime-se a aproximadamente 1 m e mire na porta: **E** abre/fecha (F também funciona). No celular, toque no botão contextual. A folha mantém colisão ao abrir; se encontrar o personagem, para e permite tentar novamente. |
 | Voar | WASD e Q/E para descer/subir. Atravessa elementos e não usa gravidade. Velocidade em Ajustes. |
 | Celular | Controle à esquerda para deslocar, arraste à direita para olhar. Botões de salto/agachamento e subida/descida. Não depende de Pointer Lock. |
 | Selecionar | Clique em uma superfície em Orbitar; em primeira pessoa, mire e clique. Busca por nome, tipo, expressID ou GlobalId. |
@@ -48,7 +48,7 @@ O modelo inicial agora é distribuído em gzip (44,2 MB) e descompactado no nave
 | Níveis | Clique no nível, preservado por expressID. Na caminhada, só há teleporte quando apoio e altura livre são válidos. Caso contrário, é usado Voar. |
 | Ajustes | FOV, sensibilidade, voo, cápsula, caminhada/corrida, qualidade, FPS, grade, diagnóstico e salvar imagem. Qualidade alta ativa sombras suaves e maior resolução. |
 
-Os parâmetros iniciais são cápsula de 1,75 m, raio 0,25 m, olhos a 1,65 m, caminhada 1,4 m/s, corrida 3 m/s e gravidade 9,81 m/s². O controlador Rapier usa passo fixo de 1/60 s, até cinco subpassos, autodegrau de 22 cm e contato com superfícies reais. Não há pisos invisíveis.
+Os parâmetros iniciais são cápsula de 1,75 m, raio 0,25 m, olhos a 1,65 m, caminhada 1,4 m/s, corrida 3 m/s e gravidade 9,81 m/s². O controlador Rapier usa passo fixo de 1/60 s, até cinco subpassos, autodegrau de 26 cm e contato com superfícies reais. Não há pisos invisíveis.
 
 ## O arquivo recebido difere da referência do pedido
 
@@ -103,6 +103,12 @@ Os acabamentos seguem a classificação e os nomes IFC: laminado em carvalho cla
 
 Fitas LED e bulbos existentes ganham emissão quente e halos pequenos com teste de profundidade. Os halos visíveis são limitados aos 24 mais próximos (12 no modo Desempenho). Até quatro luzes locais próximas do personagem ficam ativas, sem sombras adicionais; o modo Desempenho desativa essas luzes locais. Filtros, isolamento e corte também afetam os detalhes luminosos. As luzes locais são decorativas, sem simulação fotométrica nem sombras para cada luminária.
 
-As 98 janelas respondem a **F** ou ao botão de toque, no modo Caminhar e a até 2 m: 81 têm painéis deslizantes, duas têm quatro lâminas basculantes e 15 vitrines originalmente fixas recebem uma abertura virtual de ventilação do vidro/caixilho interno. Os perfis externos, vedações e venezianas exportadas já abertas permanecem em suas posições originais. A adaptação é somente na visualização interativa; o arquivo IFC não é alterado. Vidros e caixilhos móveis acompanham a colisão, seleção e medição. O sistema não representa ferragens ou folgas de fabricação e não verifica interferências da folha com outros elementos estáticos durante o movimento.
+As 98 janelas respondem a **E** (ou F) ou ao botão de toque, no modo Caminhar e a aproximadamente 1 m: 81 têm painéis deslizantes, duas têm quatro lâminas basculantes e 15 vitrines originalmente fixas recebem uma abertura virtual de ventilação do vidro/caixilho interno. Os perfis externos, vedações e venezianas exportadas já abertas permanecem em suas posições originais. A adaptação é somente na visualização interativa; o arquivo IFC não é alterado. Vidros e caixilhos móveis acompanham a colisão, seleção e medição. O sistema não representa ferragens ou folgas de fabricação e não verifica interferências da folha com outros elementos estáticos durante o movimento.
 
 Testes adicionais: `npm run test:windows` valida as 98 janelas reais, abertura/fechamento, caixilhos estáticos, transformações espelhadas, colisão nas folhas móveis e vãos, seleção e transparência. `npm run test:appearance` verifica a paleta semântica, vidro, emissão nos bulbos, orçamento de luzes, oclusão, filtros, modo de desempenho e descarte dos recursos.
+
+## Sobrevivência FPS
+
+Clique em **Jogar**, aguarde a preparação das rotas e use **Entrar no jogo** para capturar o mouse. WASD move, Shift corre, Ctrl/C agacha, E interage, Esc pausa. O celular usa joystick, olhar na área direita e botões simultâneos. Há corpo e mãos 3D animados, zumbis com navegação e abertura de portas, barras reais de vida/condição/adrenalina e reinício. As ferramentas BIM continuam disponíveis.
+
+Consulte [GAMEPLAY.md](GAMEPLAY.md) para controles completos, arquitetura, testes, otimização, condições de medição e limitações reais.

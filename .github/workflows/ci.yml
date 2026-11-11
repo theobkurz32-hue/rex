@@ -26,3 +26,6 @@ jobs:
       - run: node scripts/test-doors.mjs
       - run: node scripts/test-windows.mjs
       - run: node scripts/test-appearance.mjs
+      - run: node scripts/test-survival.mjs
+      - run: node scripts/test-survival-hotel.mjs
+      - run: node scripts/test-render-detail.mjs

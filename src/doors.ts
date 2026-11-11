@@ -23,7 +23,7 @@ export interface Door {
   blocked: boolean;
 }
 const up = new T.Vector3(0, 1, 0);
-export const DOOR_REACH = 2;
+export const DOOR_REACH = .95;
 
 /** Classifies the original IFC parts; frames never join a moving leaf. */
 export class Doors {
