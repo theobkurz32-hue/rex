@@ -39,6 +39,7 @@ O modelo inicial agora é distribuído em gzip (44,2 MB) e descompactado no nave
 | Orbitar | Arrastar com botão esquerdo para girar, roda para zoom, botão direito para deslocar. Enquadrar: edifício inteiro. Seleção: enquadrar elemento. Topo, Frente e Lado: vistas com transição. |
 | Caminhar | Escolha Caminhar e depois Entrar no modelo. WASD, mouse, Shift para correr, Espaço para saltar com apoio, C para agachar, R para ponto seguro, Esc para pausar. |
 | Captura bloqueada | Clique em **Usar arraste para olhar**. WASD continua disponível; arraste a viewport para mudar a direção. Também há link para abrir em aba própria. |
+| Portas | Em Caminhar, aproxime-se a até 2 m e mire na porta: **F** abre/fecha. No celular, toque no botão contextual. A folha mantém colisão ao abrir; se encontrar o personagem, para e permite tentar novamente. |
 | Voar | WASD e Q/E para descer/subir. Atravessa elementos e não usa gravidade. Velocidade em Ajustes. |
 | Celular | Controle à esquerda para deslocar, arraste à direita para olhar. Botões de salto/agachamento e subida/descida. Não depende de Pointer Lock. |
 | Selecionar | Clique em uma superfície em Orbitar; em primeira pessoa, mire e clique. Busca por nome, tipo, expressID ou GlobalId. |
@@ -66,6 +67,7 @@ Leia **VALIDACAO.md** para as evidências e o que ficou sem validação. Há avi
 Testes reproduzíveis:
 
 ```powershell
+node scripts/test-doors.mjs
 node scripts/test-physics.mjs
 node scripts/test-selection.mjs
 node scripts/audit-ifc.cjs
@@ -86,3 +88,11 @@ Os testes de física são pesados: usam a geometria real de aproximadamente oito
 - `evidence/`: diagnósticos, testes e imagens reais da execução.
 
 APIs consultadas: [web-ifc](https://thatopen.github.io/engine_web-ifc/docs/), [controle de personagem Rapier](https://rapier.rs/docs/user_guides/javascript/character_controller/), [consultas Rapier](https://rapier.rs/javascript3d/classes/World.html), [OrbitControls](https://threejs.org/docs/pages/OrbitControls.html). Versões exatas constam em `package.json` e `pnpm-lock.yaml`.
+
+## Portas interativas
+
+As 78 portas do Hotel Rex são preparadas a partir das peças originais do IFC: 75 portas simples, duas duplas e uma de correr com três painéis. Batentes permanecem fixos; folhas, vidros e maçanetas acompanham o movimento e seus colisores Rapier. A abertura de giro ocorre para o lado oposto ao usuário. O estado de cada porta dura até trocar ou recarregar o modelo.
+
+A classificação combina dimensões, geometrias, OperationType e nome IFC. Modelos externos com outras famílias ou geometria não separável podem exigir adaptação; IDs não reconhecidos aparecem em `audit.doors.unsupported` no diagnóstico. Não se altera o arquivo IFC. A abertura controla a interseção com a cápsula do personagem; não simula fechaduras nem resistência de paredes/móveis no arco da folha.
+
+`npm run test:doors` usa as 78 portas reais e verifica abrir/fechar, batentes fixos, transformações espelhadas, colisão na folha aberta e fechada, passagem no vão, seleção, alcance, oclusão, filtros e bloqueio pelo personagem.
