@@ -9,10 +9,12 @@ export interface DoorLeaf {
   pivot: T.Vector3;
   slide: T.Vector3;
   angle: number;
+  axis?: T.Vector3;
 }
 export interface Door {
   id: number;
-  kind: 'swing' | 'double' | 'slide';
+  kind: 'swing' | 'double' | 'slide' | 'tilt';
+  category?: 'window';
   leaves: DoorLeaf[];
   normal: T.Vector3;
   center: T.Vector3;
@@ -157,7 +159,7 @@ export class Doors {
   }
 
   toggle(door: Door, viewer: T.Vector3) {
-    if (door.progress === 0 && door.target === 0 && door.kind !== 'slide') {
+    if (door.progress === 0 && door.target === 0 && (door.kind === 'swing' || door.kind === 'double')) {
       const side = viewer.clone().sub(door.center).dot(door.normal) >= 0 ? 1 : -1;
       for (const leaf of door.leaves) {
         // Open away from the viewer. Each leaf has its own outside hinge.
@@ -191,6 +193,6 @@ export class Doors {
   transform(leaf: DoorLeaf, progress: number) {
     const t = progress * progress * (3 - 2 * progress);
     if (leaf.slide.lengthSq()) return new T.Matrix4().makeTranslation(leaf.slide.clone().multiplyScalar(t));
-    return new T.Matrix4().makeTranslation(leaf.pivot).multiply(new T.Matrix4().makeRotationY(leaf.angle * t)).multiply(new T.Matrix4().makeTranslation(leaf.pivot.clone().negate()));
+    return new T.Matrix4().makeTranslation(leaf.pivot).multiply(new T.Matrix4().makeRotationAxis(leaf.axis ?? up, leaf.angle * t)).multiply(new T.Matrix4().makeTranslation(leaf.pivot.clone().negate()));
   }
 }

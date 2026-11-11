@@ -96,3 +96,13 @@ As 78 portas do Hotel Rex são preparadas a partir das peças originais do IFC: 
 A classificação combina dimensões, geometrias, OperationType e nome IFC. Modelos externos com outras famílias ou geometria não separável podem exigir adaptação; IDs não reconhecidos aparecem em `audit.doors.unsupported` no diagnóstico. Não se altera o arquivo IFC. A abertura controla a interseção com a cápsula do personagem; não simula fechaduras nem resistência de paredes/móveis no arco da folha.
 
 `npm run test:doors` usa as 78 portas reais e verifica abrir/fechar, batentes fixos, transformações espelhadas, colisão na folha aberta e fechada, passagem no vão, seleção, alcance, oclusão, filtros e bloqueio pelo personagem.
+
+## Acabamentos, luz e janelas
+
+Os acabamentos seguem a classificação e os nomes IFC: laminado em carvalho claro, porcelanato/áreas molhadas em cerâmica neutra, carpete em cinza quente, paredes em gesso marfim e forros claros. As lajes têm a face inferior clara e bordas neutras, mesmo quando a face superior é madeira ou piso cerâmico. A paginação usa coordenadas do mundo em metros, sem alterar as malhas ou baixar texturas. Vidros continuam translúcidos e cortinas mantêm seu material de tecido.
+
+Fitas LED e bulbos existentes ganham emissão quente e halos pequenos com teste de profundidade. Os halos visíveis são limitados aos 24 mais próximos (12 no modo Desempenho). Até quatro luzes locais próximas do personagem ficam ativas, sem sombras adicionais; o modo Desempenho desativa essas luzes locais. Filtros, isolamento e corte também afetam os detalhes luminosos. As luzes locais são decorativas, sem simulação fotométrica nem sombras para cada luminária.
+
+As 98 janelas respondem a **F** ou ao botão de toque, no modo Caminhar e a até 2 m: 81 têm painéis deslizantes, duas têm quatro lâminas basculantes e 15 vitrines originalmente fixas recebem uma abertura virtual de ventilação do vidro/caixilho interno. Os perfis externos, vedações e venezianas exportadas já abertas permanecem em suas posições originais. A adaptação é somente na visualização interativa; o arquivo IFC não é alterado. Vidros e caixilhos móveis acompanham a colisão, seleção e medição. O sistema não representa ferragens ou folgas de fabricação e não verifica interferências da folha com outros elementos estáticos durante o movimento.
+
+Testes adicionais: `npm run test:windows` valida as 98 janelas reais, abertura/fechamento, caixilhos estáticos, transformações espelhadas, colisão nas folhas móveis e vãos, seleção e transparência. `npm run test:appearance` verifica a paleta semântica, vidro, emissão nos bulbos, orçamento de luzes, oclusão, filtros, modo de desempenho e descarte dos recursos.
