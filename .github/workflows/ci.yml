@@ -24,3 +24,5 @@ jobs:
       - run: node scripts/restore-model.mjs
       - run: node scripts/test-selection.mjs
       - run: node scripts/test-doors.mjs
+      - run: node scripts/test-windows.mjs
+      - run: node scripts/test-appearance.mjs

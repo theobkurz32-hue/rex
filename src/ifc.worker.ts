@@ -35,9 +35,9 @@ function metadata():Metadata {
   const levelIds=new Set(levels.map(l=>l.id));
   const storey=(id:number)=>{const seen=new Set<number>();let p=parents.get(id);while(p&&!seen.has(p)){if(levelIds.has(p))return p;seen.add(p);p=parents.get(p);}return null;};
   const doorTypes=new Map<number,string>();
-  for(const id of list(IFC.IFCRELDEFINESBYTYPE)){const r=line(id),t=line(r.RelatingType.value);if(t.type===IFC.IFCDOORSTYLE||t.type===IFC.IFCDOORTYPE)for(const o of r.RelatedObjects??[])doorTypes.set(o.value,val(t.OperationType)??'NOTDEFINED');}
+  for(const id of list(IFC.IFCRELDEFINESBYTYPE)){const r=line(id),t=line(r.RelatingType.value);if(t.type===IFC.IFCDOORSTYLE||t.type===IFC.IFCDOORTYPE||t.type===IFC.IFCWINDOWSTYLE||t.type===IFC.IFCWINDOWTYPE)for(const o of r.RelatedObjects??[])doorTypes.set(o.value,val(t.OperationType)??'NOTDEFINED');}
   const types=api.GetAllTypesOfModel(model); const elements:ElementInfo[]=[];const counts:Record<string,number>={};
-  for(const t of types){const ids=list(t.typeID);counts[t.typeName]=ids.length;if(!api.IsIfcElement(t.typeID))continue;for(const id of ids){const l=line(id);elements.push({id,type:t.typeName,name:val(l.Name),guid:val(l.GlobalId),storey:storey(id),...(t.typeID===IFC.IFCDOOR?{door:{width:Number(val(l.OverallWidth))*unitFactor,height:Number(val(l.OverallHeight))*unitFactor,operation:doorTypes.get(id)??'NOTDEFINED'}}:{})});}}
+  for(const t of types){const ids=list(t.typeID);counts[t.typeName]=ids.length;if(!api.IsIfcElement(t.typeID))continue;for(const id of ids){const l=line(id);elements.push({id,type:t.typeName,name:val(l.Name),guid:val(l.GlobalId),storey:storey(id),...(t.typeID===IFC.IFCDOOR?{door:{width:Number(val(l.OverallWidth))*unitFactor,height:Number(val(l.OverallHeight))*unitFactor,operation:doorTypes.get(id)??'NOTDEFINED'}}:t.typeID===IFC.IFCWINDOW?{window:{width:Number(val(l.OverallWidth))*unitFactor,height:Number(val(l.OverallHeight))*unitFactor,operation:doorTypes.get(id)??'NOTDEFINED'}}:{})});}}
   return {schema:api.GetModelSchema(model),unit:`${prefix?prefix+' / ':''}${name??'Unidade não suportada'}`,unitFactor,levels,elements,counts,spatial:Object.fromEntries(parents),header:api.GetHeaderLine(model,IFC.FILE_NAME)};
 }
 async function load(data:ArrayBuffer, wasm:string) {

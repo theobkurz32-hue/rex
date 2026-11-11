@@ -1,4 +1,4 @@
-export interface ElementInfo { id:number; type:string; name:string|null; guid:string|null; storey:number|null; door?:{width:number;height:number;operation:string}; }
+export interface ElementInfo { id:number; type:string; name:string|null; guid:string|null; storey:number|null; door?:{width:number;height:number;operation:string}; window?:{width:number;height:number;operation:string}; }
 export interface Level { id:number; name:string; elevation:number|null; worldY:number|null; }
 export interface GeometryData { key:number; vertices:Float32Array; indices:Uint32Array; }
 export interface Part { id:number; key:number; matrix:number[]; color:number[]; }

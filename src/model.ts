@@ -1,4 +1,5 @@
 import * as T from 'three';
+import { appearanceFor, createFinishMaterial } from './appearance';
 import { acceleratedRaycast, computeBoundsTree, disposeBoundsTree } from 'three-mesh-bvh';
 import type { GeometryData, Part, Metadata, ElementInfo } from './types';
 (T.BufferGeometry.prototype as any).computeBoundsTree=computeBoundsTree;
@@ -21,15 +22,15 @@ export class BimModel {
   }
   async finalize(progress:(n:number,total:number)=>void){
     const groups=new Map<string,Part[]>();
-    for(const p of this.parts){const key=p.color.map(v=>v.toFixed(3)).join(',');if(!groups.has(key))groups.set(key,[]);groups.get(key)!.push(p);}
+    for(const p of this.parts){const key=appearanceFor(this.elements.get(p.id),p).key;if(!groups.has(key))groups.set(key,[]);groups.get(key)!.push(p);}
     const colorCache=new Map<string,T.MeshStandardMaterial>();let n=0;
     for(const allParts of groups.values()){
       // Bounded batches reuse equal IFC geometries and combine different geometries with the same material.
       const bins:Part[][]=[];let bin:Part[]=[],keys=new Set<number>(),vertices=0,indices=0;
       for(const p of allParts){const g=this.geometry.get(p.key);if(!g)continue;const extra=keys.has(p.key)?0:g.getAttribute('position').count;if(bin.length&&(vertices+extra>350000||bin.length>=4096)){bins.push(bin);bin=[];keys=new Set();vertices=0;indices=0;}if(!keys.has(p.key)){vertices+=g.getAttribute('position').count;indices+=g.getIndex()!.count;keys.add(p.key);}bin.push(p);}if(bin.length)bins.push(bin);
       for(const parts of bins){
-      const c=parts[0].color;const key=c.join(',');let material=colorCache.get(key);
-      if(!material){material=new T.MeshStandardMaterial({color:new T.Color(c[0],c[1],c[2]),roughness:.86,metalness:0,side:T.DoubleSide,transparent:c[3]<.99,opacity:Math.max(.12,c[3]),shadowSide:T.DoubleSide});material.forceSinglePass=true;colorCache.set(key,material);this.materials.push(material);}
+      const f=appearanceFor(this.elements.get(parts[0].id),parts[0]),key=f.key;let material=colorCache.get(key);
+      if(!material){material=createFinishMaterial(f);colorCache.set(key,material);this.materials.push(material);}
       const unique=[...new Set(parts.map(p=>p.key))],maxVertices=unique.reduce((s,k)=>s+this.geometry.get(k)!.getAttribute('position').count,0),maxIndices=unique.reduce((s,k)=>s+this.geometry.get(k)!.getIndex()!.count,0);
       const mesh=new T.BatchedMesh(parts.length,maxVertices,maxIndices,material),matrices=parts.map(p=>new T.Matrix4().fromArray(p.matrix)),geometryIds=new Map<number,number>();
       for(const k of unique)geometryIds.set(k,mesh.addGeometry(this.geometry.get(k)!));
@@ -63,7 +64,7 @@ export class BimModel {
   restore(){this.hidden.clear();this.isolation=null;this.filterType='';this.filterLevel=null;this.clip=null;this.setClip(null);this.updateVisibility();}
   inspection(){return this.hidden.size>0||this.isolation!=null||!!this.filterType||this.filterLevel!=null||this.clip!=null;}
   setClip(height:number|null){this.clip=height;const planes=height==null?[]:[new T.Plane(new T.Vector3(0,-1,0),height)];for(const m of this.materials){m.clippingPlanes=planes;m.clipShadows=true;m.needsUpdate=true;}this.selection.traverse(o=>{const m=(o as T.Mesh).material as T.Material;if(m){m.clippingPlanes=planes;m.needsUpdate=true;}});}
-  setTransparency(on:boolean){for(const m of this.materials){if(m.userData.original==null)m.userData.original=m.opacity;m.opacity=on?.28:m.userData.original;m.transparent=m.opacity<.99;m.depthWrite=!on;m.needsUpdate=true;}}
+  setTransparency(on:boolean){for(const m of this.materials){if(m.userData.original==null)m.userData.original=m.opacity;m.opacity=on?.28:m.userData.original;m.transparent=m.opacity<.99;m.depthWrite=!on&&m.opacity>=.99;m.needsUpdate=true;}}
   select(id:number|null){
     this.clearGroup(this.selection);this.selection.userData.id=id;if(id==null)return;
     for(const p of this.byElement.get(id)??[]){const g=this.geometry.get(p.key)!;const material=new T.MeshBasicMaterial({color:0xf0b766,transparent:true,opacity:.55,depthTest:true,depthWrite:false,side:T.DoubleSide,polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-2,clippingPlanes:this.clip==null?[]:[new T.Plane(new T.Vector3(0,-1,0),this.clip)]});const mesh=new T.Mesh(g,material);mesh.applyMatrix4(new T.Matrix4().fromArray(p.matrix));mesh.raycast=()=>{};this.selection.add(mesh);}
