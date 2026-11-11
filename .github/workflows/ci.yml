@@ -23,3 +23,4 @@ jobs:
       - run: node scripts/check-repository.mjs
       - run: node scripts/restore-model.mjs
       - run: node scripts/test-selection.mjs
+      - run: node scripts/test-doors.mjs

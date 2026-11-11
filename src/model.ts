@@ -10,6 +10,8 @@ export class BimModel {
   root=new T.Group(); selection=new T.Group(); edges=new T.Group(); bounds=new T.Box3();
   geometry=new Map<number,T.BufferGeometry>(); parts:Part[]=[]; batches:RenderBatch[]=[]; elements=new Map<number,ElementInfo>();
   byElement=new Map<number,Part[]>(); materials:T.MeshStandardMaterial[]=[]; meta!:Metadata;
+  private partInstances=new Map<Part,{batch:RenderBatch;index:number}>();
+  private movingBatches=new Set<RenderBatch>();
   visible=new Set<number>(); hidden=new Set<number>(); isolation:number|null=null; filterType='';filterLevel:number|null=null;clip:number|null=null;
   setMeta(meta:Metadata){this.meta=meta;for(const e of meta.elements)this.elements.set(e.id,e);}
   add(definitions:GeometryData[],parts:Part[]){
@@ -32,7 +34,7 @@ export class BimModel {
       const mesh=new T.BatchedMesh(parts.length,maxVertices,maxIndices,material),matrices=parts.map(p=>new T.Matrix4().fromArray(p.matrix)),geometryIds=new Map<number,number>();
       for(const k of unique)geometryIds.set(k,mesh.addGeometry(this.geometry.get(k)!));
       parts.forEach((p,i)=>{const instance=mesh.addInstance(geometryIds.get(p.key)!);mesh.setMatrixAt(instance,matrices[i]);this.visible.add(p.id);this.bounds.union(this.geometry.get(p.key)!.boundingBox!.clone().applyMatrix4(matrices[i]));});
-      mesh.userData.batch=this.batches.length;mesh.castShadow=true;mesh.receiveShadow=true;mesh.computeBoundingSphere();this.root.add(mesh);this.batches.push({mesh,parts,matrices});
+      mesh.userData.batch=this.batches.length;mesh.castShadow=true;mesh.receiveShadow=true;mesh.computeBoundingSphere();this.root.add(mesh);const batch={mesh,parts,matrices};this.batches.push(batch);parts.forEach((p,index)=>this.partInstances.set(p,{batch,index}));
       const scratch=new T.Mesh(this.geometry.get(parts[0].key)!,material);mesh.raycast=(ray,hits)=>{for(let i=0;i<parts.length;i++){if(!mesh.getVisibleAt(i))continue;scratch.geometry=this.geometry.get(parts[i].key)!;scratch.matrixWorld.copy(matrices[i]);const found:T.Intersection[]=[];scratch.raycast(ray,found);for(const h of found){h.object=mesh;(h as any).batchId=i;hits.push(h);}}};
       await breathe();
       }
@@ -41,6 +43,17 @@ export class BimModel {
     this.root.updateMatrixWorld(true);
   }
   async buildBVH(){let n=0;for(const g of this.geometry.values()){if(g.getIndex()!.count>90)computeBoundsTree.call(g,{indirect:true});if(++n%80===0)await breathe();}}
+  setPartMatrix(part:Part,matrix:T.Matrix4){
+    const instance=this.partInstances.get(part);if(!instance)return;
+    matrix.toArray(part.matrix);instance.batch.matrices[instance.index].copy(matrix);
+    instance.batch.mesh.setMatrixAt(instance.index,matrix);this.movingBatches.add(instance.batch);
+  }
+  finishMovingParts(ids:Set<number>){
+    for(const b of this.movingBatches){b.mesh.computeBoundingBox();b.mesh.computeBoundingSphere();}this.movingBatches.clear();
+    if(ids.has(this.selection.userData.id))this.select(this.selection.userData.id);
+    // Existing edge overlays follow the same IFC part matrices.
+    for(const child of this.edges.children){const part=child.userData.part as Part|undefined;if(part&&ids.has(part.id)){child.matrix.fromArray(part.matrix);child.matrixWorldNeedsUpdate=true;}}
+  }
   updateVisibility(){
     this.visible.clear();
     for(const b of this.batches){b.parts.forEach((p,i)=>{const e=this.elements.get(p.id);const show=!this.hidden.has(p.id)&&(this.isolation==null||this.isolation===p.id)&&(!this.filterType||e?.type===this.filterType)&&(this.filterLevel==null||e?.storey===this.filterLevel);b.mesh.setVisibleAt(i,show);if(show)this.visible.add(p.id);});}
@@ -58,7 +71,7 @@ export class BimModel {
   elementBounds(id:number){const box=new T.Box3();for(const p of this.byElement.get(id)??[])box.union(this.geometry.get(p.key)!.boundingBox!.clone().applyMatrix4(new T.Matrix4().fromArray(p.matrix)));return box;}
   hit(ray:T.Raycaster){const hits=ray.intersectObjects(this.root.children,false);for(const h of hits){const batch=this.batches[h.object.userData.batch],id=batch?.parts[(h as any).batchId??0]?.id;if(id&&this.visible.has(id)&&(this.clip==null||h.point.y<=this.clip+.001))return {...h,id};}return null;}
   clearEdges(){this.clearGroup(this.edges,true);}
-  async showEdges(){this.clearEdges();let n=0;for(const p of this.parts){if(!this.visible.has(p.id))continue;const g=new T.EdgesGeometry(this.geometry.get(p.key)!,35);const l=new T.LineSegments(g,new T.LineBasicMaterial({color:0x152735,transparent:true,opacity:.3,clippingPlanes:this.clip==null?[]:[new T.Plane(new T.Vector3(0,-1,0),this.clip)]}));l.applyMatrix4(new T.Matrix4().fromArray(p.matrix));this.edges.add(l);if(++n%180===0)await breathe();}}
+  async showEdges(){this.clearEdges();let n=0;for(const p of this.parts){if(!this.visible.has(p.id))continue;const g=new T.EdgesGeometry(this.geometry.get(p.key)!,35);const l=new T.LineSegments(g,new T.LineBasicMaterial({color:0x152735,transparent:true,opacity:.3,clippingPlanes:this.clip==null?[]:[new T.Plane(new T.Vector3(0,-1,0),this.clip)]}));l.applyMatrix4(new T.Matrix4().fromArray(p.matrix));l.matrixAutoUpdate=false;l.userData.part=p;this.edges.add(l);if(++n%180===0)await breathe();}}
   clearGroup(group:T.Group,disposeGeometry=false){for(const o of [...group.children]){group.remove(o);const a=o as T.Mesh;if(disposeGeometry)a.geometry?.dispose();if(Array.isArray(a.material))a.material.forEach(m=>m.dispose());else a.material?.dispose();}}
-  dispose(){this.clearGroup(this.selection);this.clearEdges();for(const g of this.geometry.values()){disposeBoundsTree.call(g);g.dispose();}for(const b of this.batches)b.mesh.dispose();for(const m of this.materials)m.dispose();this.root.clear();this.geometry.clear();this.parts=[];this.batches=[];this.byElement.clear();this.elements.clear();}
+  dispose(){this.clearGroup(this.selection);this.clearEdges();for(const g of this.geometry.values()){disposeBoundsTree.call(g);g.dispose();}for(const b of this.batches)b.mesh.dispose();for(const m of this.materials)m.dispose();this.root.clear();this.partInstances.clear();this.movingBatches.clear();this.geometry.clear();this.parts=[];this.batches=[];this.byElement.clear();this.elements.clear();}
 }

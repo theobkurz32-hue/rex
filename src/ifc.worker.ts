@@ -34,8 +34,10 @@ function metadata():Metadata {
   const levels=list(IFC.IFCBUILDINGSTOREY).map(id=>{const l=line(id);const p=placementMatrix(l.ObjectPlacement);return {id,name:val(l.Name)??`Nível #${id}`,elevation:val(l.Elevation)==null?null:Number(val(l.Elevation))*unitFactor,worldY:Math.abs(p.elements[10])>.999?p.elements[14]*unitFactor:null};}).sort((a,b)=>(a.worldY??0)-(b.worldY??0));
   const levelIds=new Set(levels.map(l=>l.id));
   const storey=(id:number)=>{const seen=new Set<number>();let p=parents.get(id);while(p&&!seen.has(p)){if(levelIds.has(p))return p;seen.add(p);p=parents.get(p);}return null;};
+  const doorTypes=new Map<number,string>();
+  for(const id of list(IFC.IFCRELDEFINESBYTYPE)){const r=line(id),t=line(r.RelatingType.value);if(t.type===IFC.IFCDOORSTYLE||t.type===IFC.IFCDOORTYPE)for(const o of r.RelatedObjects??[])doorTypes.set(o.value,val(t.OperationType)??'NOTDEFINED');}
   const types=api.GetAllTypesOfModel(model); const elements:ElementInfo[]=[];const counts:Record<string,number>={};
-  for(const t of types){const ids=list(t.typeID);counts[t.typeName]=ids.length;if(!api.IsIfcElement(t.typeID))continue;for(const id of ids){const l=line(id);elements.push({id,type:t.typeName,name:val(l.Name),guid:val(l.GlobalId),storey:storey(id)});}}
+  for(const t of types){const ids=list(t.typeID);counts[t.typeName]=ids.length;if(!api.IsIfcElement(t.typeID))continue;for(const id of ids){const l=line(id);elements.push({id,type:t.typeName,name:val(l.Name),guid:val(l.GlobalId),storey:storey(id),...(t.typeID===IFC.IFCDOOR?{door:{width:Number(val(l.OverallWidth))*unitFactor,height:Number(val(l.OverallHeight))*unitFactor,operation:doorTypes.get(id)??'NOTDEFINED'}}:{})});}}
   return {schema:api.GetModelSchema(model),unit:`${prefix?prefix+' / ':''}${name??'Unidade não suportada'}`,unitFactor,levels,elements,counts,spatial:Object.fromEntries(parents),header:api.GetHeaderLine(model,IFC.FILE_NAME)};
 }
 async function load(data:ArrayBuffer, wasm:string) {
