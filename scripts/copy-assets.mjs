@@ -1,8 +1,10 @@
-import { mkdir, copyFile } from 'node:fs/promises';
+import { mkdir, copyFile, readFile, writeFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { dirname, join } from 'node:path';
 const require = createRequire(import.meta.url);
 const dir = dirname(require.resolve('web-ifc'));
-await mkdir('public/wasm', {recursive:true});
-await copyFile(join(dir,'web-ifc.wasm'), 'public/wasm/web-ifc.wasm');
+const version=JSON.parse(await readFile(join(dir,'package.json'),'utf8')).version;
+await mkdir('public/wasm/'+version, {recursive:true});
+await copyFile(join(dir,'web-ifc.wasm'), 'public/wasm/'+version+'/web-ifc.wasm');
+await writeFile('src/ifc-version.ts',`export const IFC_VERSION = '${version}';\n`);
 console.log('WASM web-ifc copiado. Rapier compat inclui seu WASM no bundle local.');

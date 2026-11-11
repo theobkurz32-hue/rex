@@ -18,8 +18,8 @@ importers:
         specifier: 0.9.10
         version: 0.9.10(three@0.187.0)
       web-ifc:
-        specifier: 0.0.79
-        version: 0.0.79
+        specifier: 0.0.78
+        version: 0.0.78
     devDependencies:
       '@types/three':
         specifier: 0.183.1
@@ -28,8 +28,8 @@ importers:
         specifier: 5.9.3
         version: 5.9.3
       vite:
-        specifier: 8.3.8
-        version: 8.3.8
+        specifier: 8.3.7
+        version: 8.3.7
 
 packages:
 
@@ -296,8 +296,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  vite@8.3.8:
-    resolution: {integrity: sha512-LzOn3h9rG/0vhLdXrV4yJ4QFA9eEoqCl+Yx+kGJd7aB9w6nfNgVHKSYwLPZUHrz4ZGa+t+kXjV9itvcHDLQouA==}
+  vite@8.3.7:
+    resolution: {integrity: sha512-oxh0dMxrayBr33ScJvvBJ2HBQ2jc1TBrXKR2NyL/MJ9WPuX19mN2DXWUmywKdyw5RFVQBo8hmtb2FMC0LHrnng==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
     peerDependencies:
@@ -339,8 +339,8 @@ packages:
       yaml:
         optional: true
 
-  web-ifc@0.0.79:
-    resolution: {integrity: sha512-g7bGXiW3ewxwnw9zJdVzZnRiRbDl+Fd3HWuFYs1rosQ5tmDRsOOM9pwKLBjWJYla3t88hPclJWD0J2mlksWFMQ==}
+  web-ifc@0.0.78:
+    resolution: {integrity: sha512-LGKMNYFVNyz9vVERN0iz+zvPQJqT7MEGBxslzcuuhwDDOA116LmJLKkg8sZ5SEvQJSc5NRVMWgpRNkDmuoQoJg==}
 
 snapshots:
 
@@ -525,7 +525,7 @@ snapshots:
 
   typescript@5.9.3: {}
 
-  vite@8.3.8:
+  vite@8.3.7:
     dependencies:
       lightningcss: 1.33.0
       picomatch: 4.0.7
@@ -535,4 +535,4 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
 
-  web-ifc@0.0.79: {}
+  web-ifc@0.0.78: {}

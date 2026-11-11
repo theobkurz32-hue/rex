@@ -2,4 +2,5 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 const packages=['three','web-ifc','@dimforge/rapier3d-compat','three-mesh-bvh','vite','typescript'];
 await mkdir('licenses',{recursive:true});let notices='# Dependências de terceiros\n\n';
 for(const name of packages){const dir='node_modules/'+name,meta=JSON.parse(await readFile(dir+'/package.json','utf8'));notices+=`- ${name} ${meta.version}: ${meta.license??'consulte o pacote original'}. ${typeof meta.repository==='object'?meta.repository.url:meta.repository??''}\n`;for(const filename of ['LICENSE','LICENSE.md','LICENSE.txt','LICENSE-MIT']){try{const text=await readFile(dir+'/'+filename,'utf8');await writeFile('licenses/'+name.replaceAll('/','-').replace('@','')+'-'+filename,text);break;}catch{}}}
-notices+='\nO web-ifc é distribuído com WASM sem alterações no código da biblioteca. Seu código-fonte está disponível em https://github.com/ThatOpen/engine_web-ifc (versão 0.0.79).\n';await writeFile('THIRD_PARTY_NOTICES.md',notices);
+const ifcVersion=JSON.parse(await readFile('node_modules/web-ifc/package.json','utf8')).version;
+notices+='\nO web-ifc é distribuído com WASM sem alterações no código da biblioteca. Seu código-fonte está disponível em https://github.com/ThatOpen/engine_web-ifc (versão '+ifcVersion+').\n';await writeFile('THIRD_PARTY_NOTICES.md',notices);

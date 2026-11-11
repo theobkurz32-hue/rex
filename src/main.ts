@@ -1,4 +1,5 @@
 import './style.css';
+import { IFC_VERSION } from './ifc-version';
 import * as T from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { BimModel, breathe } from './model';
@@ -94,7 +95,7 @@ async function load(file:File|null){
       if(data.kind==='error'){if(data.property){if(el('psets'))el('psets').textContent='Não foi possível consultar propriedades: '+data.message;}else fail(data.message);}
       if(data.kind==='complete')void finish(data.audit,g).catch(e=>{if(g===generation)fail(e.message);});
     };
-    worker.postMessage({kind:'load',buffer,wasm:new URL('wasm/',document.baseURI).href},[buffer]);
+    worker.postMessage({kind:'load',buffer,wasm:new URL(`wasm/${IFC_VERSION}/`,document.baseURI).href},[buffer]);
   }catch(e){if(g===generation)fail(e instanceof Error?e.message:String(e));}
 }
 function fail(message:string){el('load-title').textContent='Não foi possível concluir a importação';el('load-message').textContent=message;el('retry').hidden=false;el<HTMLProgressElement>('load-progress').removeAttribute('value');el('status').textContent='Falha na importação';console.error(message);}
