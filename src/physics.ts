@@ -2,10 +2,11 @@ import RAPIER from '@dimforge/rapier3d-compat';
 import * as T from 'three';
 import { BimModel, breathe } from './model';
 import type { Doors, DoorLeaf } from './doors';
-export const CHARACTER={height:1.75,eye:1.65,radius:.25,crouchHeight:1.1,crouchEye:1,walk:1.4,run:3,gravity:9.81,step:.22,snap:.23};
+export const CHARACTER={height:1.75,eye:1.65,radius:.25,crouchHeight:1.1,crouchEye:1,walk:1.4,run:3,gravity:9.81,step:.26,snap:.3};
 export class Physics {
   world!:RAPIER.World;controller!:RAPIER.KinematicCharacterController;body!:RAPIER.RigidBody;capsule!:RAPIER.Collider;
   colliderElement=new Map<number,number>();ready=false;active=false;crouched=false;grounded=false;vy=0;safe=new T.Vector3();safeLevel:number|null=null;height=CHARACTER.height;collisions=0;
+  actors=new Set<RAPIER.Collider>();
   private doorBodies=new Map<DoorLeaf,{body:RAPIER.RigidBody;collider:RAPIER.Collider}>();
   async init(model:BimModel,progress:(n:number,total:number)=>void,doors?:Doors){
     await RAPIER.init();this.world=new RAPIER.World({x:0,y:-CHARACTER.gravity,z:0});this.world.timestep=1/60;
@@ -41,8 +42,9 @@ export class Physics {
   }
   moveDoor(leaves:DoorLeaf[],transforms:T.Matrix4[]){
     const poses=leaves.map((leaf,i)=>({entry:this.doorBodies.get(leaf)!,position:leaf.pivot.clone().applyMatrix4(transforms[i]),rotation:new T.Quaternion().setFromRotationMatrix(transforms[i])}));
-    if(this.active)for(const {entry,position,rotation} of poses){
-      if(entry.collider.shape.intersectsShape(position,rotation,this.capsule.shape,this.capsule.translation(),this.capsule.rotation()))return false;
+    for(const {entry,position,rotation} of poses){
+      if(this.active&&entry.collider.shape.intersectsShape(position,rotation,this.capsule.shape,this.capsule.translation(),this.capsule.rotation()))return false;
+      for(const actor of this.actors)if(actor.isEnabled()&&entry.collider.shape.intersectsShape(position,rotation,actor.shape,actor.translation(),actor.rotation()))return false;
     }
     for(const {entry,position,rotation} of poses){entry.body.setTranslation(position,true);entry.body.setRotation(rotation,true);entry.body.setNextKinematicTranslation(position);entry.body.setNextKinematicRotation(rotation);}
     this.world.propagateModifiedBodyPositionsToColliders();
@@ -81,5 +83,5 @@ export class Physics {
     if(this.grounded&&this.clearAt(this.feet(),this.height))this.safe.copy(this.feet());
   }
   eye(){return this.feet().add(new T.Vector3(0,this.crouched?CHARACTER.crouchEye:CHARACTER.eye,0));}
-  dispose(){this.ready=false;this.active=false;this.colliderElement.clear();this.doorBodies.clear();this.world?.free();}
+  dispose(){this.ready=false;this.active=false;this.colliderElement.clear();this.doorBodies.clear();this.actors.clear();this.world?.free();}
 }
