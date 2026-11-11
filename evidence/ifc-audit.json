@@ -1,0 +1,3539 @@
+{
+  "file": "public/models/hotel-rex.ifc",
+  "bytes": 220289238,
+  "schema": "IFC2X3",
+  "header": {
+    "ID": 1,
+    "type": "FILE_NAME",
+    "arguments": [
+      {
+        "type": 1,
+        "value": "REX_EXE_MODELO_COMPLETO_0203.ifc"
+      },
+      {
+        "type": 1,
+        "value": "2026-11-06T09:28:06-03:00"
+      },
+      [
+        {
+          "type": 1,
+          "value": ""
+        }
+      ],
+      [
+        {
+          "type": 1,
+          "value": ""
+        }
+      ],
+      {
+        "type": 1,
+        "value": "ODA SDAI 25.12"
+      },
+      {
+        "type": 1,
+        "value": "Autodesk - Revit 26.4.0.32 (PTB) - 26.4.0.32"
+      },
+      {
+        "type": 1,
+        "value": ""
+      }
+    ]
+  },
+  "units": {
+    "expressID": 4068269,
+    "type": 180925521,
+    "Units": [
+      {
+        "expressID": 7,
+        "type": 448429030,
+        "Dimensions": {
+          "value": 0,
+          "type": 5
+        },
+        "UnitType": {
+          "type": 3,
+          "value": "LENGTHUNIT"
+        },
+        "Prefix": null,
+        "Name": {
+          "type": 3,
+          "value": "METRE"
+        }
+      },
+      {
+        "expressID": 8,
+        "type": 448429030,
+        "Dimensions": {
+          "value": 0,
+          "type": 5
+        },
+        "UnitType": {
+          "type": 3,
+          "value": "AREAUNIT"
+        },
+        "Prefix": null,
+        "Name": {
+          "type": 3,
+          "value": "SQUARE_METRE"
+        }
+      },
+      {
+        "expressID": 9,
+        "type": 448429030,
+        "Dimensions": {
+          "value": 0,
+          "type": 5
+        },
+        "UnitType": {
+          "type": 3,
+          "value": "VOLUMEUNIT"
+        },
+        "Prefix": null,
+        "Name": {
+          "type": 3,
+          "value": "CUBIC_METRE"
+        }
+      },
+      {
+        "expressID": 343,
+        "type": 1765591967,
+        "Elements": [
+          {
+            "expressID": 338,
+            "type": 1045800335,
+            "Unit": {
+              "expressID": 337,
+              "type": 448429030,
+              "Dimensions": {
+                "value": 0,
+                "type": 5
+              },
+              "UnitType": {
+                "type": 3,
+                "value": "MASSUNIT"
+              },
+              "Prefix": {
+                "type": 3,
+                "value": "KILO"
+              },
+              "Name": {
+                "type": 3,
+                "value": "GRAM"
+              }
+            },
+            "Exponent": {
+              "type": 10,
+              "_internalValue": 1,
+              "_representationValue": 1
+            }
+          },
+          {
+            "expressID": 340,
+            "type": 1045800335,
+            "Unit": {
+              "expressID": 339,
+              "type": 448429030,
+              "Dimensions": {
+                "value": 0,
+                "type": 5
+              },
+              "UnitType": {
+                "type": 3,
+                "value": "THERMODYNAMICTEMPERATUREUNIT"
+              },
+              "Prefix": null,
+              "Name": {
+                "type": 3,
+                "value": "KELVIN"
+              }
+            },
+            "Exponent": {
+              "type": 10,
+              "_internalValue": -1,
+              "_representationValue": -1
+            }
+          },
+          {
+            "expressID": 342,
+            "type": 1045800335,
+            "Unit": {
+              "expressID": 341,
+              "type": 448429030,
+              "Dimensions": {
+                "value": 0,
+                "type": 5
+              },
+              "UnitType": {
+                "type": 3,
+                "value": "TIMEUNIT"
+              },
+              "Prefix": null,
+              "Name": {
+                "type": 3,
+                "value": "SECOND"
+              }
+            },
+            "Exponent": {
+              "type": 10,
+              "_internalValue": -3,
+              "_representationValue": -3
+            }
+          }
+        ],
+        "UnitType": {
+          "type": 3,
+          "value": "THERMALTRANSMITTANCEUNIT"
+        },
+        "UserDefinedType": null
+      },
+      {
+        "expressID": 22330,
+        "type": 2889183280,
+        "Dimensions": {
+          "expressID": 22328,
+          "type": 2949456006,
+          "LengthExponent": {
+            "type": 10,
+            "_internalValue": 0,
+            "_representationValue": 0
+          },
+          "MassExponent": {
+            "type": 10,
+            "_internalValue": 0,
+            "_representationValue": 0
+          },
+          "TimeExponent": {
+            "type": 10,
+            "_internalValue": 0,
+            "_representationValue": 0
+          },
+          "ElectricCurrentExponent": {
+            "type": 10,
+            "_internalValue": 0,
+            "_representationValue": 0
+          },
+          "ThermodynamicTemperatureExponent": {
+            "type": 10,
+            "_internalValue": 0,
+            "_representationValue": 0
+          },
+          "AmountOfSubstanceExponent": {
+            "type": 10,
+            "_internalValue": 0,
+            "_representationValue": 0
+          },
+          "LuminousIntensityExponent": {
+            "type": 10,
+            "_internalValue": 0,
+            "_representationValue": 0
+          }
+        },
+        "UnitType": {
+          "type": 3,
+          "value": "PLANEANGLEUNIT"
+        },
+        "Name": {
+          "value": "DEGREE",
+          "type": 1,
+          "name": "IFCLABEL"
+        },
+        "ConversionFactor": {
+          "expressID": 22329,
+          "type": 2597039031,
+          "ValueComponent": {
+            "type": 4,
+            "_internalValue": "0.017453292519943278",
+            "_representationValue": 0.017453292519943278,
+            "name": "IFCPLANEANGLEMEASURE"
+          },
+          "UnitComponent": {
+            "expressID": 22327,
+            "type": 448429030,
+            "Dimensions": {
+              "value": 0,
+              "type": 5
+            },
+            "UnitType": {
+              "type": 3,
+              "value": "PLANEANGLEUNIT"
+            },
+            "Prefix": null,
+            "Name": {
+              "type": 3,
+              "value": "RADIAN"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "counts": {
+    "IfcFurnishingElement": 423,
+    "IfcStair": 6,
+    "IfcDoor": 78,
+    "IfcMember": 75,
+    "IfcBuildingElementProxy": 1836,
+    "IfcSlab": 119,
+    "IfcCovering": 3,
+    "IfcFlowTerminal": 331,
+    "IfcWall": 25,
+    "IfcDistributionPort": 244,
+    "IfcBuildingStorey": 25,
+    "IfcWindow": 98,
+    "IfcCurtainWall": 2,
+    "IfcWallStandardCase": 377,
+    "IfcOpeningElement": 236,
+    "IfcSpace": 3,
+    "IfcBuilding": 1,
+    "IfcSite": 1,
+    "IfcElementAssembly": 16,
+    "IfcStairFlight": 17
+  },
+  "storeys": [
+    {
+      "expressID": 25,
+      "type": 3124254112,
+      "GlobalId": {
+        "value": "2m4CnWMvH9jgNnt8L$nacK",
+        "type": 1,
+        "name": "IFCGLOBALLYUNIQUEID"
+      },
+      "OwnerHistory": {
+        "value": 6,
+        "type": 5
+      },
+      "Name": {
+        "value": "Calçada",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "Description": null,
+      "ObjectType": null,
+      "ObjectPlacement": {
+        "value": 24,
+        "type": 5
+      },
+      "Representation": null,
+      "LongName": {
+        "value": "Calçada",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "CompositionType": {
+        "type": 3,
+        "value": "ELEMENT"
+      },
+      "Elevation": {
+        "type": 4,
+        "_internalValue": "-8.4585690753116881E-018",
+        "_representationValue": -8.458569075311688e-18,
+        "name": "IFCLENGTHMEASURE"
+      }
+    },
+    {
+      "expressID": 28,
+      "type": 3124254112,
+      "GlobalId": {
+        "value": "2yazHg4fv0sxvD7rdODqEu",
+        "type": 1,
+        "name": "IFCGLOBALLYUNIQUEID"
+      },
+      "OwnerHistory": {
+        "value": 6,
+        "type": 5
+      },
+      "Name": {
+        "value": "Térreo",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "Description": null,
+      "ObjectType": null,
+      "ObjectPlacement": {
+        "value": 27,
+        "type": 5
+      },
+      "Representation": null,
+      "LongName": {
+        "value": "Térreo",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "CompositionType": {
+        "type": 3,
+        "value": "ELEMENT"
+      },
+      "Elevation": {
+        "type": 4,
+        "_internalValue": "0.",
+        "_representationValue": 0,
+        "name": "IFCLENGTHMEASURE"
+      }
+    },
+    {
+      "expressID": 32,
+      "type": 3124254112,
+      "GlobalId": {
+        "value": "2m4CnWMvH9jgNnt8L$naZG",
+        "type": 1,
+        "name": "IFCGLOBALLYUNIQUEID"
+      },
+      "OwnerHistory": {
+        "value": 6,
+        "type": 5
+      },
+      "Name": {
+        "value": "Piso térreo",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "Description": null,
+      "ObjectType": null,
+      "ObjectPlacement": {
+        "value": 31,
+        "type": 5
+      },
+      "Representation": null,
+      "LongName": {
+        "value": "Piso térreo",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "CompositionType": {
+        "type": 3,
+        "value": "ELEMENT"
+      },
+      "Elevation": {
+        "type": 4,
+        "_internalValue": "0.060000016689294819",
+        "_representationValue": 0.06000001668929482,
+        "name": "IFCLENGTHMEASURE"
+      }
+    },
+    {
+      "expressID": 36,
+      "type": 3124254112,
+      "GlobalId": {
+        "value": "2m4CnWMvH9jgNnt8L$nabx",
+        "type": 1,
+        "name": "IFCGLOBALLYUNIQUEID"
+      },
+      "OwnerHistory": {
+        "value": 6,
+        "type": 5
+      },
+      "Name": {
+        "value": "Intermediário",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "Description": null,
+      "ObjectType": null,
+      "ObjectPlacement": {
+        "value": 35,
+        "type": 5
+      },
+      "Representation": null,
+      "LongName": {
+        "value": "Intermediário",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "CompositionType": {
+        "type": 3,
+        "value": "ELEMENT"
+      },
+      "Elevation": {
+        "type": 4,
+        "_internalValue": "4.1999998092651367",
+        "_representationValue": 4.199999809265137,
+        "name": "IFCLENGTHMEASURE"
+      }
+    },
+    {
+      "expressID": 40,
+      "type": 3124254112,
+      "GlobalId": {
+        "value": "2KcYUZFib1ZwWuxSqgaJri",
+        "type": 1,
+        "name": "IFCGLOBALLYUNIQUEID"
+      },
+      "OwnerHistory": {
+        "value": 6,
+        "type": 5
+      },
+      "Name": {
+        "value": "Laje 1",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "Description": null,
+      "ObjectType": null,
+      "ObjectPlacement": {
+        "value": 39,
+        "type": 5
+      },
+      "Representation": null,
+      "LongName": {
+        "value": "Laje 1",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "CompositionType": {
+        "type": 3,
+        "value": "ELEMENT"
+      },
+      "Elevation": {
+        "type": 4,
+        "_internalValue": "4.8499999999999988",
+        "_representationValue": 4.849999999999999,
+        "name": "IFCLENGTHMEASURE"
+      }
+    },
+    {
+      "expressID": 44,
+      "type": 3124254112,
+      "GlobalId": {
+        "value": "2m4CnWMvH9jgNnt8L$nagm",
+        "type": 1,
+        "name": "IFCGLOBALLYUNIQUEID"
+      },
+      "OwnerHistory": {
+        "value": 6,
+        "type": 5
+      },
+      "Name": {
+        "value": "Tipo 1",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "Description": null,
+      "ObjectType": null,
+      "ObjectPlacement": {
+        "value": 43,
+        "type": 5
+      },
+      "Representation": null,
+      "LongName": {
+        "value": "Tipo 1",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "CompositionType": {
+        "type": 3,
+        "value": "ELEMENT"
+      },
+      "Elevation": {
+        "type": 4,
+        "_internalValue": "4.9999998211860657",
+        "_representationValue": 4.999999821186066,
+        "name": "IFCLENGTHMEASURE"
+      }
+    },
+    {
+      "expressID": 48,
+      "type": 3124254112,
+      "GlobalId": {
+        "value": "1Y3l3sciL43fys9Bb0c_eP",
+        "type": 1,
+        "name": "IFCGLOBALLYUNIQUEID"
+      },
+      "OwnerHistory": {
+        "value": 6,
+        "type": 5
+      },
+      "Name": {
+        "value": "2 PLANTA TIPO 2º PAV",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "Description": null,
+      "ObjectType": null,
+      "ObjectPlacement": {
+        "value": 47,
+        "type": 5
+      },
+      "Representation": null,
+      "LongName": {
+        "value": "2 PLANTA TIPO 2º PAV",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "CompositionType": {
+        "type": 3,
+        "value": "ELEMENT"
+      },
+      "Elevation": {
+        "type": 4,
+        "_internalValue": "5.0799999999999992",
+        "_representationValue": 5.079999999999999,
+        "name": "IFCLENGTHMEASURE"
+      }
+    },
+    {
+      "expressID": 52,
+      "type": 3124254112,
+      "GlobalId": {
+        "value": "2KcYUZFib1ZwWuxSqgaJ$h",
+        "type": 1,
+        "name": "IFCGLOBALLYUNIQUEID"
+      },
+      "OwnerHistory": {
+        "value": 6,
+        "type": 5
+      },
+      "Name": {
+        "value": "Laje 2",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "Description": null,
+      "ObjectType": null,
+      "ObjectPlacement": {
+        "value": 51,
+        "type": 5
+      },
+      "Representation": null,
+      "LongName": {
+        "value": "Laje 2",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "CompositionType": {
+        "type": 3,
+        "value": "ELEMENT"
+      },
+      "Elevation": {
+        "type": 4,
+        "_internalValue": "8.0800000000000001",
+        "_representationValue": 8.08,
+        "name": "IFCLENGTHMEASURE"
+      }
+    },
+    {
+      "expressID": 56,
+      "type": 3124254112,
+      "GlobalId": {
+        "value": "2m4CnWMvH9jgNnt8L$nalh",
+        "type": 1,
+        "name": "IFCGLOBALLYUNIQUEID"
+      },
+      "OwnerHistory": {
+        "value": 6,
+        "type": 5
+      },
+      "Name": {
+        "value": "Tipo 2",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "Description": null,
+      "ObjectType": null,
+      "ObjectPlacement": {
+        "value": 55,
+        "type": 5
+      },
+      "Representation": null,
+      "LongName": {
+        "value": "Tipo 2",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "CompositionType": {
+        "type": 3,
+        "value": "ELEMENT"
+      },
+      "Elevation": {
+        "type": 4,
+        "_internalValue": "8.1499999165534973",
+        "_representationValue": 8.149999916553497,
+        "name": "IFCLENGTHMEASURE"
+      }
+    },
+    {
+      "expressID": 60,
+      "type": 3124254112,
+      "GlobalId": {
+        "value": "1Y3l3sciL43fys9Bb0c_tn",
+        "type": 1,
+        "name": "IFCGLOBALLYUNIQUEID"
+      },
+      "OwnerHistory": {
+        "value": 6,
+        "type": 5
+      },
+      "Name": {
+        "value": "3 PLANTA 3º PAV",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "Description": null,
+      "ObjectType": null,
+      "ObjectPlacement": {
+        "value": 59,
+        "type": 5
+      },
+      "Representation": null,
+      "LongName": {
+        "value": "3 PLANTA 3º PAV",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "CompositionType": {
+        "type": 3,
+        "value": "ELEMENT"
+      },
+      "Elevation": {
+        "type": 4,
+        "_internalValue": "8.2300000000000004",
+        "_representationValue": 8.23,
+        "name": "IFCLENGTHMEASURE"
+      }
+    },
+    {
+      "expressID": 64,
+      "type": 3124254112,
+      "GlobalId": {
+        "value": "2m4CnWMvH9jgNnt8L$naG$",
+        "type": 1,
+        "name": "IFCGLOBALLYUNIQUEID"
+      },
+      "OwnerHistory": {
+        "value": 6,
+        "type": 5
+      },
+      "Name": {
+        "value": "Tipo 3",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "Description": null,
+      "ObjectType": null,
+      "ObjectPlacement": {
+        "value": 63,
+        "type": 5
+      },
+      "Representation": null,
+      "LongName": {
+        "value": "Tipo 3",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "CompositionType": {
+        "type": 3,
+        "value": "ELEMENT"
+      },
+      "Elevation": {
+        "type": 4,
+        "_internalValue": "11.219999849796299",
+        "_representationValue": 11.219999849796299,
+        "name": "IFCLENGTHMEASURE"
+      }
+    },
+    {
+      "expressID": 68,
+      "type": 3124254112,
+      "GlobalId": {
+        "value": "2OMw$PHoPB_QdwXe7a$wdl",
+        "type": 1,
+        "name": "IFCGLOBALLYUNIQUEID"
+      },
+      "OwnerHistory": {
+        "value": 6,
+        "type": 5
+      },
+      "Name": {
+        "value": "Laje 3",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "Description": null,
+      "ObjectType": null,
+      "ObjectPlacement": {
+        "value": 67,
+        "type": 5
+      },
+      "Representation": null,
+      "LongName": {
+        "value": "Laje 3",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "CompositionType": {
+        "type": 3,
+        "value": "ELEMENT"
+      },
+      "Elevation": {
+        "type": 4,
+        "_internalValue": "11.23",
+        "_representationValue": 11.23,
+        "name": "IFCLENGTHMEASURE"
+      }
+    },
+    {
+      "expressID": 72,
+      "type": 3124254112,
+      "GlobalId": {
+        "value": "3Do6u0sKT3chdAspujCRLw",
+        "type": 1,
+        "name": "IFCGLOBALLYUNIQUEID"
+      },
+      "OwnerHistory": {
+        "value": 6,
+        "type": 5
+      },
+      "Name": {
+        "value": "4 PLANTA 4º PAV",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "Description": null,
+      "ObjectType": null,
+      "ObjectPlacement": {
+        "value": 71,
+        "type": 5
+      },
+      "Representation": null,
+      "LongName": {
+        "value": "4 PLANTA 4º PAV",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "CompositionType": {
+        "type": 3,
+        "value": "ELEMENT"
+      },
+      "Elevation": {
+        "type": 4,
+        "_internalValue": "11.380000000000001",
+        "_representationValue": 11.38,
+        "name": "IFCLENGTHMEASURE"
+      }
+    },
+    {
+      "expressID": 76,
+      "type": 3124254112,
+      "GlobalId": {
+        "value": "2m4CnWMvH9jgNnt8L$naHH",
+        "type": 1,
+        "name": "IFCGLOBALLYUNIQUEID"
+      },
+      "OwnerHistory": {
+        "value": 6,
+        "type": 5
+      },
+      "Name": {
+        "value": "Tipo 4",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "Description": null,
+      "ObjectType": null,
+      "ObjectPlacement": {
+        "value": 75,
+        "type": 5
+      },
+      "Representation": null,
+      "LongName": {
+        "value": "Tipo 4",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "CompositionType": {
+        "type": 3,
+        "value": "ELEMENT"
+      },
+      "Elevation": {
+        "type": 4,
+        "_internalValue": "14.20999985933304",
+        "_representationValue": 14.20999985933304,
+        "name": "IFCLENGTHMEASURE"
+      }
+    },
+    {
+      "expressID": 80,
+      "type": 3124254112,
+      "GlobalId": {
+        "value": "2OMw$PHoPB_QdwXe7a$zRE",
+        "type": 1,
+        "name": "IFCGLOBALLYUNIQUEID"
+      },
+      "OwnerHistory": {
+        "value": 6,
+        "type": 5
+      },
+      "Name": {
+        "value": "Laje 4",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "Description": null,
+      "ObjectType": null,
+      "ObjectPlacement": {
+        "value": 79,
+        "type": 5
+      },
+      "Representation": null,
+      "LongName": {
+        "value": "Laje 4",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "CompositionType": {
+        "type": 3,
+        "value": "ELEMENT"
+      },
+      "Elevation": {
+        "type": 4,
+        "_internalValue": "14.379999999999999",
+        "_representationValue": 14.379999999999999,
+        "name": "IFCLENGTHMEASURE"
+      }
+    },
+    {
+      "expressID": 84,
+      "type": 3124254112,
+      "GlobalId": {
+        "value": "3Do6u0sKT3chdAspujCRG6",
+        "type": 1,
+        "name": "IFCGLOBALLYUNIQUEID"
+      },
+      "OwnerHistory": {
+        "value": 6,
+        "type": 5
+      },
+      "Name": {
+        "value": "5 PLANTA 5º PAV",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "Description": null,
+      "ObjectType": null,
+      "ObjectPlacement": {
+        "value": 83,
+        "type": 5
+      },
+      "Representation": null,
+      "LongName": {
+        "value": "5 PLANTA 5º PAV",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "CompositionType": {
+        "type": 3,
+        "value": "ELEMENT"
+      },
+      "Elevation": {
+        "type": 4,
+        "_internalValue": "14.529999999999998",
+        "_representationValue": 14.529999999999998,
+        "name": "IFCLENGTHMEASURE"
+      }
+    },
+    {
+      "expressID": 88,
+      "type": 3124254112,
+      "GlobalId": {
+        "value": "2m4CnWMvH9jgNnt8L$naIE",
+        "type": 1,
+        "name": "IFCGLOBALLYUNIQUEID"
+      },
+      "OwnerHistory": {
+        "value": 6,
+        "type": 5
+      },
+      "Name": {
+        "value": "Tipo 5",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "Description": null,
+      "ObjectType": null,
+      "ObjectPlacement": {
+        "value": 87,
+        "type": 5
+      },
+      "Representation": null,
+      "LongName": {
+        "value": "Tipo 5",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "CompositionType": {
+        "type": 3,
+        "value": "ELEMENT"
+      },
+      "Elevation": {
+        "type": 4,
+        "_internalValue": "17.199999868869781",
+        "_representationValue": 17.19999986886978,
+        "name": "IFCLENGTHMEASURE"
+      }
+    },
+    {
+      "expressID": 92,
+      "type": 3124254112,
+      "GlobalId": {
+        "value": "2OMw$PHoPB_QdwXe7a$zO3",
+        "type": 1,
+        "name": "IFCGLOBALLYUNIQUEID"
+      },
+      "OwnerHistory": {
+        "value": 6,
+        "type": 5
+      },
+      "Name": {
+        "value": "Laje 5",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "Description": null,
+      "ObjectType": null,
+      "ObjectPlacement": {
+        "value": 91,
+        "type": 5
+      },
+      "Representation": null,
+      "LongName": {
+        "value": "Laje 5",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "CompositionType": {
+        "type": 3,
+        "value": "ELEMENT"
+      },
+      "Elevation": {
+        "type": 4,
+        "_internalValue": "17.530000000000001",
+        "_representationValue": 17.53,
+        "name": "IFCLENGTHMEASURE"
+      }
+    },
+    {
+      "expressID": 96,
+      "type": 3124254112,
+      "GlobalId": {
+        "value": "3Do6u0sKT3chdAspujCRTh",
+        "type": 1,
+        "name": "IFCGLOBALLYUNIQUEID"
+      },
+      "OwnerHistory": {
+        "value": 6,
+        "type": 5
+      },
+      "Name": {
+        "value": "6 PLANTA 6º PAV",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "Description": null,
+      "ObjectType": null,
+      "ObjectPlacement": {
+        "value": 95,
+        "type": 5
+      },
+      "Representation": null,
+      "LongName": {
+        "value": "6 PLANTA 6º PAV",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "CompositionType": {
+        "type": 3,
+        "value": "ELEMENT"
+      },
+      "Elevation": {
+        "type": 4,
+        "_internalValue": "17.68",
+        "_representationValue": 17.68,
+        "name": "IFCLENGTHMEASURE"
+      }
+    },
+    {
+      "expressID": 100,
+      "type": 3124254112,
+      "GlobalId": {
+        "value": "2m4CnWMvH9jgNnt8L$naJD",
+        "type": 1,
+        "name": "IFCGLOBALLYUNIQUEID"
+      },
+      "OwnerHistory": {
+        "value": 6,
+        "type": 5
+      },
+      "Name": {
+        "value": "Cobertura -",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "Description": null,
+      "ObjectType": null,
+      "ObjectPlacement": {
+        "value": 99,
+        "type": 5
+      },
+      "Representation": null,
+      "LongName": {
+        "value": "Cobertura -",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "CompositionType": {
+        "type": 3,
+        "value": "ELEMENT"
+      },
+      "Elevation": {
+        "type": 4,
+        "_internalValue": "20.449999868869785",
+        "_representationValue": 20.449999868869785,
+        "name": "IFCLENGTHMEASURE"
+      }
+    },
+    {
+      "expressID": 104,
+      "type": 3124254112,
+      "GlobalId": {
+        "value": "2OMw$PHoPB_QdwXe7a$zUe",
+        "type": 1,
+        "name": "IFCGLOBALLYUNIQUEID"
+      },
+      "OwnerHistory": {
+        "value": 6,
+        "type": 5
+      },
+      "Name": {
+        "value": "Laje 6",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "Description": null,
+      "ObjectType": null,
+      "ObjectPlacement": {
+        "value": 103,
+        "type": 5
+      },
+      "Representation": null,
+      "LongName": {
+        "value": "Laje 6",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "CompositionType": {
+        "type": 3,
+        "value": "ELEMENT"
+      },
+      "Elevation": {
+        "type": 4,
+        "_internalValue": "20.68",
+        "_representationValue": 20.68,
+        "name": "IFCLENGTHMEASURE"
+      }
+    },
+    {
+      "expressID": 108,
+      "type": 3124254112,
+      "GlobalId": {
+        "value": "3Do6u0sKT3chdAspujCRVv",
+        "type": 1,
+        "name": "IFCGLOBALLYUNIQUEID"
+      },
+      "OwnerHistory": {
+        "value": 6,
+        "type": 5
+      },
+      "Name": {
+        "value": "Cobertura",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "Description": null,
+      "ObjectType": null,
+      "ObjectPlacement": {
+        "value": 107,
+        "type": 5
+      },
+      "Representation": null,
+      "LongName": {
+        "value": "Cobertura",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "CompositionType": {
+        "type": 3,
+        "value": "ELEMENT"
+      },
+      "Elevation": {
+        "type": 4,
+        "_internalValue": "20.829999999999998",
+        "_representationValue": 20.83,
+        "name": "IFCLENGTHMEASURE"
+      }
+    },
+    {
+      "expressID": 112,
+      "type": 3124254112,
+      "GlobalId": {
+        "value": "2m4CnWMvH9jgNnt8L$naLr",
+        "type": 1,
+        "name": "IFCGLOBALLYUNIQUEID"
+      },
+      "OwnerHistory": {
+        "value": 6,
+        "type": 5
+      },
+      "Name": {
+        "value": "Base reservatórios",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "Description": null,
+      "ObjectType": null,
+      "ObjectPlacement": {
+        "value": 111,
+        "type": 5
+      },
+      "Representation": null,
+      "LongName": {
+        "value": "Base reservatórios",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "CompositionType": {
+        "type": 3,
+        "value": "ELEMENT"
+      },
+      "Elevation": {
+        "type": 4,
+        "_internalValue": "23.579999983310703",
+        "_representationValue": 23.579999983310703,
+        "name": "IFCLENGTHMEASURE"
+      }
+    },
+    {
+      "expressID": 116,
+      "type": 3124254112,
+      "GlobalId": {
+        "value": "1$kFakJ6T7cwXFGf7$f9Is",
+        "type": 1,
+        "name": "IFCGLOBALLYUNIQUEID"
+      },
+      "OwnerHistory": {
+        "value": 6,
+        "type": 5
+      },
+      "Name": {
+        "value": "Final",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "Description": null,
+      "ObjectType": null,
+      "ObjectPlacement": {
+        "value": 115,
+        "type": 5
+      },
+      "Representation": null,
+      "LongName": {
+        "value": "Final",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "CompositionType": {
+        "type": 3,
+        "value": "ELEMENT"
+      },
+      "Elevation": {
+        "type": 4,
+        "_internalValue": "24.289999999999996",
+        "_representationValue": 24.289999999999996,
+        "name": "IFCLENGTHMEASURE"
+      }
+    },
+    {
+      "expressID": 120,
+      "type": 3124254112,
+      "GlobalId": {
+        "value": "2m4CnWMvH9jgNnt8L$naM0",
+        "type": 1,
+        "name": "IFCGLOBALLYUNIQUEID"
+      },
+      "OwnerHistory": {
+        "value": 6,
+        "type": 5
+      },
+      "Name": {
+        "value": "Respaldo",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "Description": null,
+      "ObjectType": null,
+      "ObjectPlacement": {
+        "value": 119,
+        "type": 5
+      },
+      "Representation": null,
+      "LongName": {
+        "value": "Respaldo",
+        "type": 1,
+        "name": "IFCLABEL"
+      },
+      "CompositionType": {
+        "type": 3,
+        "value": "ELEMENT"
+      },
+      "Elevation": {
+        "type": 4,
+        "_internalValue": "25.079999983310703",
+        "_representationValue": 25.079999983310703,
+        "name": "IFCLENGTHMEASURE"
+      }
+    }
+  ],
+  "rendered": 3382,
+  "parts": 31181,
+  "triangles": 7971637,
+  "min": [
+    -9.915000393256022,
+    -5.049999821931123,
+    -3.6800001466068135
+  ],
+  "max": [
+    16.43216613026535,
+    20.130000162869692,
+    6.981733662728168
+  ],
+  "dimensions": [
+    26.347166523521373,
+    25.179999984800816,
+    10.661733809334981
+  ],
+  "coordination": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    3.772273048595932,
+    -4.949999821186065,
+    -2.670033970718742,
+    1
+  ],
+  "diagnostics": {
+    "count": 0,
+    "samples": []
+  },
+  "empty": [
+    {
+      "id": 2818582,
+      "type": "IfcStair"
+    },
+    {
+      "id": 2819769,
+      "type": "IfcStair"
+    },
+    {
+      "id": 2820085,
+      "type": "IfcStair"
+    },
+    {
+      "id": 2820398,
+      "type": "IfcStair"
+    },
+    {
+      "id": 2820711,
+      "type": "IfcStair"
+    },
+    {
+      "id": 2821024,
+      "type": "IfcStair"
+    },
+    {
+      "id": 4061244,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061249,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061254,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061259,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061264,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061269,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061274,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061279,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061284,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061289,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061294,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061299,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061304,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061309,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061314,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061319,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061324,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061329,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061334,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061339,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061344,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061349,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061354,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061359,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061364,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061369,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061374,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061379,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061384,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061389,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061394,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061401,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061406,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061413,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061418,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061423,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061428,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061433,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061438,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061443,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061448,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061453,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061458,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061463,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061468,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061473,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061478,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061484,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061489,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061494,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061499,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061504,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061509,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061514,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061519,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061524,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061529,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061534,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061539,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061544,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061549,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061554,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061559,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061564,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061569,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061574,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061579,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061584,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061589,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061594,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061599,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061604,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061609,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061614,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061619,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061624,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061629,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061634,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061639,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061644,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061649,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061654,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061659,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061664,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061669,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061674,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061679,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061684,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061689,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061694,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061699,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061704,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061709,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061714,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061719,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061724,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061729,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061734,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061739,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061744,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061749,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061754,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061759,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061764,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061769,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061774,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061779,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061784,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061789,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061794,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061799,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061804,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061809,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061814,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061819,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061824,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061829,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061834,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061839,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061844,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061849,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061854,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061859,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061864,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061869,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061874,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061879,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061884,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061889,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061894,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061899,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061904,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061909,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061914,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061919,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061924,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061929,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061934,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061939,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061944,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061949,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061954,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061959,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061964,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061969,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061974,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061979,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061984,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061989,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061994,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4061999,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062004,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062009,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062014,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062019,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062024,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062029,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062034,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062039,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062044,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062049,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062054,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062059,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062064,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062069,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062074,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062079,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062084,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062089,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062094,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062099,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062104,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062109,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062114,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062119,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062124,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062129,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062134,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062139,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062144,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062149,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062154,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062159,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062164,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062169,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062174,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062179,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062184,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062189,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062194,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062199,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062204,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062209,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062214,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062219,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062224,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062229,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062234,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062239,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062244,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062249,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062254,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062259,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062264,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062269,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062274,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062279,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062284,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062289,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062294,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062299,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062304,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062309,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062314,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062319,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062324,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062329,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062334,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062339,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062344,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062349,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062354,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062359,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062364,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062369,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062374,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062379,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062384,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062389,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062394,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062399,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062404,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062409,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062414,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062419,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062424,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062429,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062434,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062439,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062444,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062449,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062454,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062459,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 4062464,
+      "type": "IfcDistributionPort"
+    },
+    {
+      "id": 25,
+      "type": "IfcBuildingStorey"
+    },
+    {
+      "id": 28,
+      "type": "IfcBuildingStorey"
+    },
+    {
+      "id": 32,
+      "type": "IfcBuildingStorey"
+    },
+    {
+      "id": 36,
+      "type": "IfcBuildingStorey"
+    },
+    {
+      "id": 40,
+      "type": "IfcBuildingStorey"
+    },
+    {
+      "id": 44,
+      "type": "IfcBuildingStorey"
+    },
+    {
+      "id": 48,
+      "type": "IfcBuildingStorey"
+    },
+    {
+      "id": 52,
+      "type": "IfcBuildingStorey"
+    },
+    {
+      "id": 56,
+      "type": "IfcBuildingStorey"
+    },
+    {
+      "id": 60,
+      "type": "IfcBuildingStorey"
+    },
+    {
+      "id": 64,
+      "type": "IfcBuildingStorey"
+    },
+    {
+      "id": 68,
+      "type": "IfcBuildingStorey"
+    },
+    {
+      "id": 72,
+      "type": "IfcBuildingStorey"
+    },
+    {
+      "id": 76,
+      "type": "IfcBuildingStorey"
+    },
+    {
+      "id": 80,
+      "type": "IfcBuildingStorey"
+    },
+    {
+      "id": 84,
+      "type": "IfcBuildingStorey"
+    },
+    {
+      "id": 88,
+      "type": "IfcBuildingStorey"
+    },
+    {
+      "id": 92,
+      "type": "IfcBuildingStorey"
+    },
+    {
+      "id": 96,
+      "type": "IfcBuildingStorey"
+    },
+    {
+      "id": 100,
+      "type": "IfcBuildingStorey"
+    },
+    {
+      "id": 104,
+      "type": "IfcBuildingStorey"
+    },
+    {
+      "id": 108,
+      "type": "IfcBuildingStorey"
+    },
+    {
+      "id": 112,
+      "type": "IfcBuildingStorey"
+    },
+    {
+      "id": 116,
+      "type": "IfcBuildingStorey"
+    },
+    {
+      "id": 120,
+      "type": "IfcBuildingStorey"
+    },
+    {
+      "id": 2225622,
+      "type": "IfcCurtainWall"
+    },
+    {
+      "id": 2819129,
+      "type": "IfcCurtainWall"
+    },
+    {
+      "id": 22335,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 31853,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 1896146,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 1896193,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 2210105,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 2211306,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 2211466,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 2211544,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 2211622,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 2211700,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 2211778,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 2211871,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 2219088,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 2764394,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 3220145,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 3220258,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 3268012,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 3268059,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 3277384,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 3299695,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 3299808,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 3302035,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 3302082,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 3312460,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 3334849,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 3334962,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 3337189,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 3337236,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 3347614,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 3370023,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 3370136,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 3372363,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 3372410,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 3382766,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065153,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065169,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065184,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065199,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065214,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065229,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065244,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065259,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065274,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065289,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065304,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065319,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065336,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065351,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065368,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065383,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065400,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065415,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065432,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065447,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065464,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065479,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065496,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065511,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065526,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065542,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065557,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065572,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065587,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065602,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065618,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065633,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065649,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065665,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065680,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065695,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065710,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065725,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065740,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065755,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065770,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065786,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065801,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065816,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065831,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065846,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065861,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065876,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065891,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065906,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065921,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065936,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065951,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065966,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065981,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4065996,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066012,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066027,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066042,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066057,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066072,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066087,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066107,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066119,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066134,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066149,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066164,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066179,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066195,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066210,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066225,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066240,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066255,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066270,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066285,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066300,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066315,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066330,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066345,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066362,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066377,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066392,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066407,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066422,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066437,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066452,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066467,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066483,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066498,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066513,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066529,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066544,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066559,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066574,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066590,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066606,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066621,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066636,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066652,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066667,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066682,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066697,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066712,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066727,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066742,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066757,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066772,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066787,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066802,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066819,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066834,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066851,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066866,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066883,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066898,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066915,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066930,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066947,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066962,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066979,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4066994,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067009,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067025,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067040,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067055,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067070,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067085,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067101,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067116,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067132,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067148,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067163,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067178,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067194,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067209,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067224,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067239,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067254,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067269,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067284,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067299,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067314,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067329,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067344,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067361,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067376,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067393,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067408,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067425,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067440,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067457,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067472,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067489,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067504,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067521,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067536,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067551,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067567,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067582,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067597,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067612,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067627,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067643,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067658,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067674,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067690,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067705,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067720,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067736,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067751,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067766,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067781,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067796,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067811,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067826,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067841,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067856,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067871,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067886,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067903,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067918,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067935,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067950,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067967,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067982,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4067999,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4068014,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4068031,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4068046,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4068063,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4068078,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4068093,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4068109,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4068124,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4068139,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4068154,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4068169,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4068185,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4068200,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4068216,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4068232,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 4068247,
+      "type": "IfcOpeningElement"
+    },
+    {
+      "id": 150,
+      "type": "IfcSpace"
+    },
+    {
+      "id": 186,
+      "type": "IfcSpace"
+    },
+    {
+      "id": 262,
+      "type": "IfcSpace"
+    },
+    {
+      "id": 22,
+      "type": "IfcBuilding"
+    },
+    {
+      "id": 124,
+      "type": "IfcSite"
+    },
+    {
+      "id": 849945,
+      "type": "IfcElementAssembly"
+    },
+    {
+      "id": 1996900,
+      "type": "IfcElementAssembly"
+    },
+    {
+      "id": 2541767,
+      "type": "IfcElementAssembly"
+    },
+    {
+      "id": 2592932,
+      "type": "IfcElementAssembly"
+    },
+    {
+      "id": 3267345,
+      "type": "IfcElementAssembly"
+    },
+    {
+      "id": 3267352,
+      "type": "IfcElementAssembly"
+    },
+    {
+      "id": 3272815,
+      "type": "IfcElementAssembly"
+    },
+    {
+      "id": 3301611,
+      "type": "IfcElementAssembly"
+    },
+    {
+      "id": 3301616,
+      "type": "IfcElementAssembly"
+    },
+    {
+      "id": 3306832,
+      "type": "IfcElementAssembly"
+    },
+    {
+      "id": 3336765,
+      "type": "IfcElementAssembly"
+    },
+    {
+      "id": 3336770,
+      "type": "IfcElementAssembly"
+    },
+    {
+      "id": 3341986,
+      "type": "IfcElementAssembly"
+    },
+    {
+      "id": 3371939,
+      "type": "IfcElementAssembly"
+    },
+    {
+      "id": 3371944,
+      "type": "IfcElementAssembly"
+    },
+    {
+      "id": 3377160,
+      "type": "IfcElementAssembly"
+    }
+  ],
+  "sample": [
+    {
+      "id": 801445,
+      "matrix": [
+        0,
+        0,
+        -1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        -1,
+        0,
+        0,
+        0.45000000000002327,
+        0.07500000000000008,
+        -0.5000000000001552,
+        1
+      ]
+    },
+    {
+      "id": 801495,
+      "matrix": [
+        0,
+        0,
+        -1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        -1,
+        0,
+        0,
+        3.240000000000138,
+        0.07500000000000008,
+        -0.5000000000002204,
+        1
+      ]
+    },
+    {
+      "id": 801515,
+      "matrix": [
+        0,
+        0,
+        -1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        -1,
+        0,
+        0,
+        13.569170355420553,
+        0.12500000000000167,
+        0.6999999999997071,
+        1
+      ]
+    }
+  ],
+  "seconds": 12.79
+}

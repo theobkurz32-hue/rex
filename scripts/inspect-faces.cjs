@@ -1,0 +1,2 @@
+const fs=require('fs'),IFC=require('web-ifc');
+(async()=>{const api=new IFC.IfcAPI();await api.Init();const m=api.OpenModel(fs.readFileSync('reference/hotel-rex.ifc'));const data=[1911436,2060895,2060978].map(id=>({id,type:api.GetNameFromTypeCode(api.GetLineType(m,id)),line:api.GetLine(m,id,true)}));fs.writeFileSync('evidence/face-diagnostics.json',JSON.stringify(data,null,2));console.log(JSON.stringify(data,null,2));api.CloseModel(m);})();

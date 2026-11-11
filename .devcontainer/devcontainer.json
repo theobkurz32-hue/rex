@@ -1,0 +1,10 @@
+{
+  "name": "Hotel Rex BIM Explorer",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:24-bookworm",
+  "forwardPorts": [5173],
+  "portsAttributes": {
+    "5173": { "label": "Hotel Rex BIM Explorer", "onAutoForward": "openPreview" }
+  },
+  "postCreateCommand": "npm install --global pnpm@11.25.0 && pnpm install --frozen-lockfile",
+  "postStartCommand": "bash -lc 'nohup pnpm exec vite --host 0.0.0.0 --port 5173 --strictPort > /tmp/hotel-rex-vite.log 2>&1 &'"
+}

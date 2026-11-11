@@ -1,0 +1,481 @@
+{
+  "file": "REX_EXE_MODELO_COMPLETO_0203.ifc",
+  "checks": [
+    {
+      "name": "Escala pela altura declarada de porta IFC",
+      "pass": true,
+      "evidence": [
+        {
+          "id": 2803854,
+          "declared": 2.099999999999982,
+          "geometry": 2.0999999046325684
+        }
+      ]
+    },
+    {
+      "name": "Níveis distintos, acentos e eixo vertical",
+      "pass": true,
+      "evidence": {
+        "levels": 25,
+        "verticalExtent": 25.179999984800816,
+        "elevations": [
+          {
+            "id": 25,
+            "name": "Calçada",
+            "elevation": -8.458569075311688e-18
+          },
+          {
+            "id": 28,
+            "name": "Térreo",
+            "elevation": 0
+          },
+          {
+            "id": 32,
+            "name": "Piso térreo",
+            "elevation": 0.06000001668929482
+          },
+          {
+            "id": 36,
+            "name": "Intermediário",
+            "elevation": 4.199999809265137
+          },
+          {
+            "id": 40,
+            "name": "Laje 1",
+            "elevation": 4.849999999999999
+          },
+          {
+            "id": 44,
+            "name": "Tipo 1",
+            "elevation": 4.999999821186066
+          },
+          {
+            "id": 48,
+            "name": "2 PLANTA TIPO 2º PAV",
+            "elevation": 5.079999999999999
+          },
+          {
+            "id": 52,
+            "name": "Laje 2",
+            "elevation": 8.08
+          },
+          {
+            "id": 56,
+            "name": "Tipo 2",
+            "elevation": 8.149999916553497
+          },
+          {
+            "id": 60,
+            "name": "3 PLANTA 3º PAV",
+            "elevation": 8.23
+          },
+          {
+            "id": 64,
+            "name": "Tipo 3",
+            "elevation": 11.219999849796299
+          },
+          {
+            "id": 68,
+            "name": "Laje 3",
+            "elevation": 11.23
+          },
+          {
+            "id": 72,
+            "name": "4 PLANTA 4º PAV",
+            "elevation": 11.38
+          },
+          {
+            "id": 76,
+            "name": "Tipo 4",
+            "elevation": 14.20999985933304
+          },
+          {
+            "id": 80,
+            "name": "Laje 4",
+            "elevation": 14.379999999999999
+          },
+          {
+            "id": 84,
+            "name": "5 PLANTA 5º PAV",
+            "elevation": 14.529999999999998
+          },
+          {
+            "id": 88,
+            "name": "Tipo 5",
+            "elevation": 17.19999986886978
+          },
+          {
+            "id": 92,
+            "name": "Laje 5",
+            "elevation": 17.53
+          },
+          {
+            "id": 96,
+            "name": "6 PLANTA 6º PAV",
+            "elevation": 17.68
+          },
+          {
+            "id": 100,
+            "name": "Cobertura -",
+            "elevation": 20.449999868869785
+          },
+          {
+            "id": 104,
+            "name": "Laje 6",
+            "elevation": 20.68
+          },
+          {
+            "id": 108,
+            "name": "Cobertura",
+            "elevation": 20.83
+          },
+          {
+            "id": 112,
+            "name": "Base reservatórios",
+            "elevation": 23.579999983310703
+          },
+          {
+            "id": 116,
+            "name": "Final",
+            "elevation": 24.289999999999996
+          },
+          {
+            "id": 120,
+            "name": "Respaldo",
+            "elevation": 25.079999983310703
+          }
+        ]
+      }
+    },
+    {
+      "name": "Geometria visual e física usam os mesmos triângulos",
+      "pass": true,
+      "evidence": {
+        "triangles": 7971637,
+        "colliders": 3382
+      }
+    },
+    {
+      "name": "Entrada e troca de nível sem interpenetração",
+      "pass": true,
+      "evidence": {
+        "levelsWithEntry": 15,
+        "levelsWithoutEntry": 10
+      }
+    },
+    {
+      "name": "Apoio estável em superfície real",
+      "pass": true,
+      "evidence": {
+        "start": [
+          3.2585830688476562,
+          -4.919999599456787,
+          -2.080739974975586
+        ],
+        "end": [
+          3.2585830688476562,
+          -4.934926509857178,
+          -2.080739974975586
+        ],
+        "grounded": true
+      }
+    },
+    {
+      "name": "Salto apenas com apoio e gravidade",
+      "pass": true,
+      "evidence": {
+        "height": 0.4340250492095947,
+        "end": [
+          3.2585835456848145,
+          -4.935248851776123,
+          -2.080740213394165
+        ]
+      }
+    },
+    {
+      "name": "Agachar e retornar ao ponto seguro",
+      "pass": true,
+      "evidence": {
+        "safe": [
+          3.2585835456848145,
+          -4.935248851776123,
+          -2.080740213394165
+        ],
+        "feet": [
+          3.2585835456848145,
+          -4.935248851776123,
+          -2.080740213394165
+        ]
+      }
+    },
+    {
+      "name": "Queda fora do limite e recuperação",
+      "pass": true,
+      "evidence": {
+        "fallStart": 21.255001068115234,
+        "recovered": [
+          3.2585835456848145,
+          -4.935248851776123,
+          -2.080740213394165
+        ]
+      }
+    },
+    {
+      "name": "Obstáculo IFC bloqueia a cápsula",
+      "pass": true,
+      "evidence": {
+        "id": 2218369,
+        "type": "IfcDoor",
+        "level": 28,
+        "position": [
+          5.535215377807617,
+          -4.935102939605713,
+          -2.0830001831054688
+        ]
+      }
+    },
+    {
+      "name": "Borda ou vão real permite queda",
+      "pass": true,
+      "evidence": {
+        "level": 52,
+        "from": [
+          -6.454999999999654,
+          5.124999690891973,
+          -2.932578381614428
+        ],
+        "to": [
+          -8.431739807128906,
+          4.28718376159668,
+          -2.694575071334839
+        ]
+      }
+    },
+    {
+      "name": "Desativação da física para inspeção",
+      "pass": true,
+      "evidence": true
+    },
+    {
+      "name": "Descarte de mundo e colisores",
+      "pass": true,
+      "evidence": true
+    }
+  ],
+  "unverified": [
+    "Escadas: nenhum percurso ascendente válido foi encontrado pela amostragem automática; requer inspeção manual de cada lance."
+  ],
+  "levels": [
+    {
+      "id": 25,
+      "name": "Calçada",
+      "entry": null
+    },
+    {
+      "id": 28,
+      "name": "Térreo",
+      "entry": [
+        3.2585830995646674,
+        -4.919999614804982,
+        -2.0807399204932677
+      ]
+    },
+    {
+      "id": 32,
+      "name": "Piso térreo",
+      "entry": [
+        6.530300170898468,
+        -4.860000075325375,
+        1.8573759527036175
+      ]
+    },
+    {
+      "id": 36,
+      "name": "Intermediário",
+      "entry": null
+    },
+    {
+      "id": 40,
+      "name": "Laje 1",
+      "entry": null
+    },
+    {
+      "id": 44,
+      "name": "Tipo 1",
+      "entry": [
+        2.184488818780128,
+        0.1299999947845943,
+        0.6564704573360576
+      ]
+    },
+    {
+      "id": 48,
+      "name": "2 PLANTA TIPO 2º PAV",
+      "entry": [
+        -7.808696517943996,
+        0.16000016167759887,
+        -1.309394824285897
+      ]
+    },
+    {
+      "id": 52,
+      "name": "Laje 2",
+      "entry": [
+        -6.454999999999654,
+        5.124999690891973,
+        -2.932578381614428
+      ]
+    },
+    {
+      "id": 56,
+      "name": "Tipo 2",
+      "entry": [
+        2.184488818780139,
+        3.280000000745059,
+        0.6564704573360576
+      ]
+    },
+    {
+      "id": 60,
+      "name": "3 PLANTA 3º PAV",
+      "entry": [
+        -7.808696517943986,
+        3.310000212341546,
+        -1.309394824285897
+      ]
+    },
+    {
+      "id": 64,
+      "name": "Tipo 3",
+      "entry": [
+        2.184488818780151,
+        6.34999993398786,
+        0.6583099135174422
+      ]
+    },
+    {
+      "id": 68,
+      "name": "Laje 3",
+      "entry": [
+        -7.808696517943979,
+        6.380000384002929,
+        -1.309394824285897
+      ]
+    },
+    {
+      "id": 72,
+      "name": "4 PLANTA 4º PAV",
+      "entry": null
+    },
+    {
+      "id": 76,
+      "name": "Tipo 4",
+      "entry": [
+        2.184488818780162,
+        9.340000420361758,
+        0.6583099135174422
+      ]
+    },
+    {
+      "id": 80,
+      "name": "Laje 4",
+      "entry": [
+        -7.808696517943979,
+        9.43000047937036,
+        -1.3093948242858975
+      ]
+    },
+    {
+      "id": 84,
+      "name": "5 PLANTA 5º PAV",
+      "entry": null
+    },
+    {
+      "id": 88,
+      "name": "Tipo 5",
+      "entry": [
+        2.184488818780169,
+        12.330000429898499,
+        0.6583099135174422
+      ]
+    },
+    {
+      "id": 92,
+      "name": "Laje 5",
+      "entry": [
+        -7.808696517943968,
+        12.420000488907107,
+        -1.3093948242858975
+      ]
+    },
+    {
+      "id": 96,
+      "name": "6 PLANTA 6º PAV",
+      "entry": null
+    },
+    {
+      "id": 100,
+      "name": "Cobertura -",
+      "entry": [
+        7.024284503594561,
+        15.530000254064802,
+        2.3936338194618085
+      ]
+    },
+    {
+      "id": 104,
+      "name": "Laje 6",
+      "entry": null
+    },
+    {
+      "id": 108,
+      "name": "Cobertura",
+      "entry": [
+        -5.040000000000003,
+        20.160001307278872,
+        -0.8523743448428003
+      ]
+    },
+    {
+      "id": 112,
+      "name": "Base reservatórios",
+      "entry": null
+    },
+    {
+      "id": 116,
+      "name": "Final",
+      "entry": null
+    },
+    {
+      "id": 120,
+      "name": "Respaldo",
+      "entry": null
+    }
+  ],
+  "diagnostics": {
+    "count": 8880,
+    "samples": [
+      "[WEB-IFC][error][TriangulateBounds()] No basis found for brep! 1911436",
+      "[WEB-IFC][error][TriangulateBounds()] No basis found for brep! 2060895",
+      "[WEB-IFC][error][TriangulateBounds()] No basis found for brep! 2060978",
+      "[WEB-IFC][error][TriangulateBounds()] No basis found for brep! 2064682",
+      "[WEB-IFC][error][TriangulateBounds()] No basis found for brep! 2065216",
+      "[WEB-IFC][error][TriangulateBounds()] No basis found for brep! 2065634",
+      "[WEB-IFC][error][TriangulateBounds()] No basis found for brep! 2066273",
+      "[WEB-IFC][error][TriangulateBounds()] No basis found for brep! 2067834"
+    ]
+  },
+  "geometry": {
+    "elements": 3382,
+    "parts": 31081,
+    "triangles": 7971637,
+    "bounds": [
+      -9.915000393256022,
+      -5.049999821931123,
+      -3.6800001466068135,
+      16.43216613026535,
+      20.130000162869692,
+      6.981733662728168
+    ]
+  }
+}

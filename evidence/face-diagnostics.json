@@ -1,0 +1,353 @@
+[
+  {
+    "id": 1911436,
+    "type": "IfcFace",
+    "line": {
+      "expressID": 1911436,
+      "type": 2556980723,
+      "Bounds": [
+        {
+          "expressID": 1911435,
+          "type": 803316827,
+          "Bound": {
+            "expressID": 1911434,
+            "type": 2924175390,
+            "Polygon": [
+              {
+                "expressID": 1905027,
+                "type": 1123145078,
+                "Coordinates": [
+                  {
+                    "type": 4,
+                    "_internalValue": "-0.2913978692648031",
+                    "_representationValue": -0.2913978692648031,
+                    "name": "IFCLENGTHMEASURE"
+                  },
+                  {
+                    "type": 4,
+                    "_internalValue": "-0.25597105846753354",
+                    "_representationValue": -0.25597105846753354,
+                    "name": "IFCLENGTHMEASURE"
+                  },
+                  {
+                    "type": 4,
+                    "_internalValue": "0.038927145661196864",
+                    "_representationValue": 0.038927145661196864,
+                    "name": "IFCLENGTHMEASURE"
+                  }
+                ]
+              },
+              {
+                "expressID": 1904382,
+                "type": 1123145078,
+                "Coordinates": [
+                  {
+                    "type": 4,
+                    "_internalValue": "-0.26163926450965169",
+                    "_representationValue": -0.2616392645096517,
+                    "name": "IFCLENGTHMEASURE"
+                  },
+                  {
+                    "type": 4,
+                    "_internalValue": "-0.26316516839609916",
+                    "_representationValue": -0.26316516839609916,
+                    "name": "IFCLENGTHMEASURE"
+                  },
+                  {
+                    "type": 4,
+                    "_internalValue": "0.038927145661196594",
+                    "_representationValue": 0.038927145661196594,
+                    "name": "IFCLENGTHMEASURE"
+                  }
+                ]
+              },
+              {
+                "expressID": 1904114,
+                "type": 1123145078,
+                "Coordinates": [
+                  {
+                    "type": 4,
+                    "_internalValue": "-0.27367995705036641",
+                    "_representationValue": -0.2736799570503664,
+                    "name": "IFCLENGTHMEASURE"
+                  },
+                  {
+                    "type": 4,
+                    "_internalValue": "-0.2493808822626663",
+                    "_representationValue": -0.2493808822626663,
+                    "name": "IFCLENGTHMEASURE"
+                  },
+                  {
+                    "type": 4,
+                    "_internalValue": "0.017837414497620108",
+                    "_representationValue": 0.017837414497620108,
+                    "name": "IFCLENGTHMEASURE"
+                  }
+                ]
+              },
+              {
+                "expressID": 1904113,
+                "type": 1123145078,
+                "Coordinates": [
+                  {
+                    "type": 4,
+                    "_internalValue": "-0.31865828798161111",
+                    "_representationValue": -0.3186582879816111,
+                    "name": "IFCLENGTHMEASURE"
+                  },
+                  {
+                    "type": 4,
+                    "_internalValue": "-0.24938088226266616",
+                    "_representationValue": -0.24938088226266616,
+                    "name": "IFCLENGTHMEASURE"
+                  },
+                  {
+                    "type": 4,
+                    "_internalValue": "0.038927145661196594",
+                    "_representationValue": 0.038927145661196594,
+                    "name": "IFCLENGTHMEASURE"
+                  }
+                ]
+              }
+            ]
+          },
+          "Orientation": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 2060895,
+    "type": "IfcFace",
+    "line": {
+      "expressID": 2060895,
+      "type": 2556980723,
+      "Bounds": [
+        {
+          "expressID": 2060894,
+          "type": 803316827,
+          "Bound": {
+            "expressID": 2060893,
+            "type": 2924175390,
+            "Polygon": [
+              {
+                "expressID": 2060890,
+                "type": 1123145078,
+                "Coordinates": [
+                  {
+                    "type": 4,
+                    "_internalValue": "0.018721153566241266",
+                    "_representationValue": 0.018721153566241266,
+                    "name": "IFCLENGTHMEASURE"
+                  },
+                  {
+                    "type": 4,
+                    "_internalValue": "0.0048726642876863483",
+                    "_representationValue": 0.004872664287686348,
+                    "name": "IFCLENGTHMEASURE"
+                  },
+                  {
+                    "type": 4,
+                    "_internalValue": "0.037529372584819795",
+                    "_representationValue": 0.037529372584819795,
+                    "name": "IFCLENGTHMEASURE"
+                  }
+                ]
+              },
+              {
+                "expressID": 2060891,
+                "type": 1123145078,
+                "Coordinates": [
+                  {
+                    "type": 4,
+                    "_internalValue": "0.01828338391184807",
+                    "_representationValue": 0.01828338391184807,
+                    "name": "IFCLENGTHMEASURE"
+                  },
+                  {
+                    "type": 4,
+                    "_internalValue": "0.0066815899148583418",
+                    "_representationValue": 0.006681589914858342,
+                    "name": "IFCLENGTHMEASURE"
+                  },
+                  {
+                    "type": 4,
+                    "_internalValue": "0.037529372584819795",
+                    "_representationValue": 0.037529372584819795,
+                    "name": "IFCLENGTHMEASURE"
+                  }
+                ]
+              },
+              {
+                "expressID": 2060862,
+                "type": 1123145078,
+                "Coordinates": [
+                  {
+                    "type": 4,
+                    "_internalValue": "0.019357135140895845",
+                    "_representationValue": 0.019357135140895845,
+                    "name": "IFCLENGTHMEASURE"
+                  },
+                  {
+                    "type": 4,
+                    "_internalValue": "0.0039777879506349562",
+                    "_representationValue": 0.003977787950634956,
+                    "name": "IFCLENGTHMEASURE"
+                  },
+                  {
+                    "type": 4,
+                    "_internalValue": "0.037265971148014068",
+                    "_representationValue": 0.03726597114801407,
+                    "name": "IFCLENGTHMEASURE"
+                  }
+                ]
+              },
+              {
+                "expressID": 2060892,
+                "type": 1123145078,
+                "Coordinates": [
+                  {
+                    "type": 4,
+                    "_internalValue": "0.01915892322063446",
+                    "_representationValue": 0.01915892322063446,
+                    "name": "IFCLENGTHMEASURE"
+                  },
+                  {
+                    "type": 4,
+                    "_internalValue": "0.0030637386605143549",
+                    "_representationValue": 0.003063738660514355,
+                    "name": "IFCLENGTHMEASURE"
+                  },
+                  {
+                    "type": 4,
+                    "_internalValue": "0.037529372584819795",
+                    "_representationValue": 0.037529372584819795,
+                    "name": "IFCLENGTHMEASURE"
+                  }
+                ]
+              }
+            ]
+          },
+          "Orientation": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 2060978,
+    "type": "IfcFace",
+    "line": {
+      "expressID": 2060978,
+      "type": 2556980723,
+      "Bounds": [
+        {
+          "expressID": 2060977,
+          "type": 803316827,
+          "Bound": {
+            "expressID": 2060976,
+            "type": 2924175390,
+            "Polygon": [
+              {
+                "expressID": 2060974,
+                "type": 1123145078,
+                "Coordinates": [
+                  {
+                    "type": 4,
+                    "_internalValue": "0.0033541148543357849",
+                    "_representationValue": 0.003354114854335785,
+                    "name": "IFCLENGTHMEASURE"
+                  },
+                  {
+                    "type": 4,
+                    "_internalValue": "0.020179182529449464",
+                    "_representationValue": 0.020179182529449464,
+                    "name": "IFCLENGTHMEASURE"
+                  },
+                  {
+                    "type": 4,
+                    "_internalValue": "0.037529372584819795",
+                    "_representationValue": 0.037529372584819795,
+                    "name": "IFCLENGTHMEASURE"
+                  }
+                ]
+              },
+              {
+                "expressID": 2060843,
+                "type": 1123145078,
+                "Coordinates": [
+                  {
+                    "type": 4,
+                    "_internalValue": "0.0015923406913876533",
+                    "_representationValue": 0.0015923406913876533,
+                    "name": "IFCLENGTHMEASURE"
+                  },
+                  {
+                    "type": 4,
+                    "_internalValue": "0.020595561093091967",
+                    "_representationValue": 0.020595561093091967,
+                    "name": "IFCLENGTHMEASURE"
+                  },
+                  {
+                    "type": 4,
+                    "_internalValue": "0.037529372584819795",
+                    "_representationValue": 0.037529372584819795,
+                    "name": "IFCLENGTHMEASURE"
+                  }
+                ]
+              },
+              {
+                "expressID": 2060816,
+                "type": 1123145078,
+                "Coordinates": [
+                  {
+                    "type": 4,
+                    "_internalValue": "0.0024662903442978861",
+                    "_representationValue": 0.002466290344297886,
+                    "name": "IFCLENGTHMEASURE"
+                  },
+                  {
+                    "type": 4,
+                    "_internalValue": "0.020790645933151247",
+                    "_representationValue": 0.020790645933151247,
+                    "name": "IFCLENGTHMEASURE"
+                  },
+                  {
+                    "type": 4,
+                    "_internalValue": "0.037265971148014068",
+                    "_representationValue": 0.03726597114801407,
+                    "name": "IFCLENGTHMEASURE"
+                  }
+                ]
+              },
+              {
+                "expressID": 2060975,
+                "type": 1123145078,
+                "Coordinates": [
+                  {
+                    "type": 4,
+                    "_internalValue": "0.0051158890172839167",
+                    "_representationValue": 0.005115889017283917,
+                    "name": "IFCLENGTHMEASURE"
+                  },
+                  {
+                    "type": 4,
+                    "_internalValue": "0.019762803965806961",
+                    "_representationValue": 0.01976280396580696,
+                    "name": "IFCLENGTHMEASURE"
+                  },
+                  {
+                    "type": 4,
+                    "_internalValue": "0.037529372584819795",
+                    "_representationValue": 0.037529372584819795,
+                    "name": "IFCLENGTHMEASURE"
+                  }
+                ]
+              }
+            ]
+          },
+          "Orientation": true
+        }
+      ]
+    }
+  }
+]

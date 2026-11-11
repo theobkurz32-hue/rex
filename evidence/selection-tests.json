@@ -1,0 +1,50 @@
+{
+  "pass": true,
+  "selection": [
+    {
+      "type": "IfcDoor",
+      "id": 9809,
+      "guid": "3kJOXlNAfFVAHZIuM2lR5T",
+      "hit": [
+        0.006666666344952892,
+        0.0012078221412061825,
+        -0.00015901238741237653
+      ],
+      "properties": 2
+    },
+    {
+      "type": "IfcSlab",
+      "id": 801445,
+      "guid": "3kJOXlNAfFVAHZIuM2lR6f",
+      "hit": [
+        2.6560000039736678,
+        -1.1700000029802426,
+        0.43466666666702636
+      ],
+      "properties": 3
+    },
+    {
+      "type": "IfcStairFlight",
+      "id": 2818762,
+      "guid": "3kJOXlNAfFVAHZIuM2lQEX",
+      "hit": [
+        -6.680595353682728,
+        -5.931785522741946,
+        2.5296657511083023
+      ],
+      "properties": 2
+    }
+  ],
+  "centimetreFixture": {
+    "declared": [
+      200,
+      100,
+      300
+    ],
+    "metreYUp": [
+      2,
+      3,
+      1
+    ]
+  }
+}

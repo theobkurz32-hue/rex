@@ -1,0 +1,11 @@
+import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { gzipSync, gunzipSync } from 'node:zlib';
+import { createHash } from 'node:crypto';
+const source=process.argv[2]??'reference/hotel-rex.ifc';
+const bytes=await readFile(source),packed=gzipSync(bytes,{level:9});
+const restored=gunzipSync(packed),hash=b=>createHash('sha256').update(b).digest('hex');
+if(hash(bytes)!==hash(restored))throw new Error('O modelo descompactado não coincide com o original.');
+await mkdir('public/models',{recursive:true});
+await writeFile('public/models/hotel-rex.ifc.gz',packed);
+await writeFile('public/models/manifest.json',JSON.stringify({sourceName:'REX_EXE_MODELO_COMPLETO_0203.ifc',file:'hotel-rex.ifc.gz',compression:'gzip',originalBytes:bytes.length,compressedBytes:packed.length,sha256:hash(bytes)},null,2));
+console.log(JSON.stringify({originalMB:bytes.length/1e6,compressedMB:packed.length/1e6,sha256:hash(bytes)}));
