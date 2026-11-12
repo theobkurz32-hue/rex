@@ -4,11 +4,14 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --host 127.0.0.1 --port 5173 --strictPort",
-    "build": "tsc --noEmit && vite build",
+    "dev": "node scripts/run.mjs dev",
+    "build": "node scripts/run.mjs build",
+    "prepare:scene": "node scripts/prepare-hotel-scene.mjs",
     "preview": "vite preview --host 127.0.0.1",
     "postinstall": "node scripts/copy-assets.mjs",
     "audit:ifc": "node scripts/audit-ifc.cjs",
+    "test:hotel-scene": "node scripts/test-hotel-scene.mjs",
+    "test:mobile-colliders": "node scripts/test-mobile-colliders.mjs",
     "test:render-detail": "node scripts/test-render-detail.mjs",
     "test:survival": "node scripts/test-survival.mjs",
     "test:survival-hotel": "node scripts/test-survival-hotel.mjs",
@@ -20,9 +23,10 @@
   },
   "dependencies": {
     "@dimforge/rapier3d-compat": "0.21.0",
+    "fflate": "0.8.3",
     "three": "0.187.0",
-    "web-ifc": "0.0.78",
-    "three-mesh-bvh": "0.9.10"
+    "three-mesh-bvh": "0.9.10",
+    "web-ifc": "0.0.78"
   },
   "devDependencies": {
     "@types/three": "0.183.1",

@@ -9,4 +9,7 @@ if(restored.length!==manifest.originalBytes||createHash('sha256').update(restore
 const root=resolve('dist');async function scan(dir){for(const item of await readdir(dir,{withFileTypes:true})){const path=resolve(dir,item.name);if(item.isDirectory())await scan(path);else if((await stat(path)).size>100*1024*1024)throw new Error('Asset não compactado no build: '+relative(root,path));}}
 const ifcVersion=JSON.parse(await readFile('node_modules/web-ifc/package.json','utf8')).version;
 await scan(root);for(const file of ['index.html',`wasm/${ifcVersion}/web-ifc.wasm`,'models/'+manifest.file])await stat(resolve(root,file));
+const scene=JSON.parse(await readFile(resolve(root,'models/scene/manifest.json'),'utf8'));
+if(scene.sourceSha256!==manifest.sha256||scene.parserVersion!==ifcVersion||!scene.chunks.length)throw new Error('Cena preparada não corresponde ao IFC e parser atuais.');
+for(const file of [...scene.chunks,...scene.propertyBuckets]){const bytes=await readFile(resolve(root,'models/scene',file.file));if(bytes.length!==file.bytes||createHash('sha256').update(bytes).digest('hex')!==file.sha256)throw new Error('Asset da cena inválido: '+file.file);}
 console.log('Build e modelo íntegros. Maior asset do modelo:',compressed.length,'bytes. Sem arquivos de 100 MiB no build.');

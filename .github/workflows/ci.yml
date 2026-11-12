@@ -21,6 +21,8 @@ jobs:
       - run: node scripts/copy-assets.mjs
       - run: node scripts/run.mjs build
       - run: node scripts/check-repository.mjs
+      - run: node scripts/test-hotel-scene.mjs
+      - run: node scripts/test-mobile-colliders.mjs
       - run: node scripts/restore-model.mjs
       - run: node scripts/test-selection.mjs
       - run: node scripts/test-doors.mjs

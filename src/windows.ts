@@ -56,7 +56,7 @@ export function prepareWindows(model: BimModel, openings: Doors) {
       }
       groups.sort((a, b) => a.box.min.x - b.box.min.x);
       if (groups.length >= 2) {
-        const destination = groups.at(-1)!.box.getCenter(new T.Vector3()).x;
+        const destination = groups[groups.length-1].box.getCenter(new T.Vector3()).x;
         for (const g of groups.slice(0, -1)) {
           // Offset slightly onto the adjacent track so the sashes never coincide.
           const offset = axis.clone().multiplyScalar(destination - g.box.getCenter(new T.Vector3()).x).addScaledVector(normal, -.045);

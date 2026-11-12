@@ -3,6 +3,8 @@ dist/
 *.log
 .test-runtime/
 .selection-runtime/
+public/models/scene/
+public/models/scene.building-*/
 server.pid
 reference/*.ifc
 *.bundle

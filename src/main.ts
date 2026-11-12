@@ -9,6 +9,7 @@ import { prepareWindows } from './windows';
 import { LightDetails } from './lighting';
 import { SurvivalGame } from './survival';
 import {Quality,type QualityMode} from './quality';
+import {HotelScene} from './scene-cache';
 import type { Mode, Metadata } from './types';
 
 const app=document.querySelector<HTMLDivElement>('#app')!;
@@ -28,10 +29,10 @@ const fmt=(n:number,d=2)=>n.toLocaleString('pt-BR',{minimumFractionDigits:d,maxi
 const escape=(s:unknown)=>String(s??'Não informado').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]!));
 const value=(v:any):any=>v?.value??v?._representationValue??v?._internalValue??(typeof v==='string'||typeof v==='number'?v:null);
 let doors=new Doors(),lightDetails=new LightDetails();
-let model=new BimModel(),physics=new Physics(),worker:Worker|null=null,mode:Mode='orbit',selected:number|null=null,currentLevel:number|null=null,meta:Metadata|null=null,audit:any=null,ready=false,generation=0;
+let model=new BimModel(),physics=new Physics(),worker:Worker|null=null,sceneSource:HotelScene|null=null,loadController=new AbortController(),mode:Mode='orbit',selected:number|null=null,currentLevel:number|null=null,meta:Metadata|null=null,audit:any=null,ready=false,generation=0;
 let active=false,measuring=false,measurePoints:T.Vector3[]=[],lastFile:File|null=null,loadStart=0,toastTimer=0,completedStages=new Set<string>();
 const viewport=el('viewport'),scene=new T.Scene();scene.add(lightDetails.root);scene.background=new T.Color('#dce3e6');
-const renderer=new T.WebGLRenderer({antialias:true,powerPreference:'high-performance',preserveDrawingBuffer:true});renderer.setPixelRatio(1);renderer.localClippingEnabled=true;renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=.95;renderer.shadowMap.enabled=false;renderer.shadowMap.type=T.PCFSoftShadowMap;viewport.prepend(renderer.domElement);renderer.domElement.setAttribute('aria-label','Viewport 3D do Hotel Rex');
+const renderer=new T.WebGLRenderer({antialias:!matchMedia('(pointer:coarse)').matches,powerPreference:'high-performance',preserveDrawingBuffer:false});renderer.setPixelRatio(1);renderer.localClippingEnabled=true;renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=.95;renderer.shadowMap.enabled=false;renderer.shadowMap.type=T.PCFSoftShadowMap;viewport.prepend(renderer.domElement);renderer.domElement.setAttribute('aria-label','Viewport 3D do Hotel Rex');
 const quality=new Quality(matchMedia('(pointer:coarse)').matches,devicePixelRatio);
 const camera=new T.PerspectiveCamera(70,1,.035,2500);camera.position.set(35,25,35);
 const survival=new SurvivalGame(scene,camera);let velocity=new T.Vector2(),touchRun=false,deathHandled=false,queuedPlay=false;
@@ -74,24 +75,26 @@ function row(k:string,v:unknown){return `<div class="property-row"><dt>${escape(
 function select(id:number|null){selected=id;model.select(id);el('properties').classList.remove('collapsed');if(id==null){el('property-content').innerHTML='<div class="empty-state"><div>⌖</div><h3>Selecione um elemento</h3><p>Clique no modelo ou use a busca.</p></div>';return;}
  const e=model.elements.get(id),l=meta?.levels.find(l=>l.id===e?.storey),size=model.elementBounds(id).getSize(new T.Vector3());
  el('property-content').innerHTML=`<div class="element-tag">${escape(e?.type)}</div><h3 class="element-name">${escape(e?.name)}</h3><dl>${row('expressID',id)}${row('GlobalId',e?.guid)}${row('Nível IFC',l?`${l.name} · #${l.id}`:null)}${row('Modelo',lastFile?.name??'REX_EXE_MODELO_COMPLETO_0203.ifc')}</dl><details><summary>Envelope calculado · mundo (m)</summary><dl>${row('Extensão X',Number.isFinite(size.x)?fmt(size.x):null)}${row('Extensão vertical Y',Number.isFinite(size.y)?fmt(size.y):null)}${row('Extensão Z',Number.isFinite(size.z)?fmt(size.z):null)}</dl><p class="small muted">Medidas calculadas na geometria orientada ao mundo. Não são dimensões declaradas no IFC.</p></details><div id="psets"><p class="muted">Consultando propriedades declaradas…</p></div>`;
- worker?.postMessage({kind:'properties',id});
+ if(sceneSource){const g=generation;void sceneSource.property(id).then(data=>{if(g===generation)renderProperties(data);}).catch(error=>{if(g===generation&&selected===id&&el('psets'))el('psets').textContent='Não foi possível consultar as propriedades. Selecione novamente para tentar outra vez. '+error.message;});}else worker?.postMessage({kind:'properties',id});
 }
 function renderProperties(data:any){if(data.id!==selected)return;const psets=el('psets');if(!psets)return;const sets=[...(data.psets??[])];let html='';
   for(const set of sets){const props=set.HasProperties??set.Quantities??[];html+=`<details open><summary>${escape(value(set.Name))}</summary><dl>`;for(const p of props){const v=value(p.NominalValue??p.LengthValue??p.AreaValue??p.VolumeValue??p.CountValue??p.WeightValue??p.TimeValue);html+=row(value(p.Name)??'Propriedade',v??(p.EnumerationValues?p.EnumerationValues.map(value).join(', '):null));}html+='</dl></details>';}
   html+=`<details><summary>Atributos IFC declarados</summary><dl>`;for(const [k,v] of Object.entries(data.properties??{})){if(['type','expressID'].includes(k))continue;const scalar=value(v);if(scalar!=null)html+=row(k,scalar);}html+='</dl></details>';
-  html+=`<details><summary>Materiais / tipo IFC</summary><pre>${escape(JSON.stringify({materiais:data.materials,tipo:data.type},null,2))}</pre></details>`;
+  html+=`<details><summary>Materiais / tipo IFC</summary><p class="small muted">As representações geométricas são indicadas por referência IFC; a geometria completa permanece no modelo 3D.</p><pre>${escape(JSON.stringify({materiais:data.materials,tipo:data.type},null,2))}</pre></details>`;
   psets.innerHTML=(sets.length?'<p class="eyebrow">PROPRIEDADES DECLARADAS NO IFC</p>':'<p class="muted">Conjuntos de propriedades: Não informado.</p>')+html;
 }
-function disposeCurrent(){pause();queuedPlay=false;el('play-game').textContent='▶ Jogar';survival.clearWorld();deathHandled=false;el('game-over').hidden=true;ready=false;worker?.postMessage({kind:'dispose'});worker?.terminate();worker=null;physics.dispose();scene.remove(model.root,model.selection,model.edges);model.dispose();model=new BimModel();physics=new Physics();doors=new Doors();scene.remove(lightDetails.root);lightDetails.dispose();lightDetails=new LightDetails();scene.add(lightDetails.root);scene.add(model.root,model.selection,model.edges);selected=null;currentLevel=null;meta=null;audit=null;input('search').value='';el('results').innerHTML='';el('results').hidden=true;el('import-report')?.remove();updateLevelLabel();clearMeasurement();debugCapsule.visible=false;input('debug').checked=false;mode='orbit';syncMode();}
+function disposeCurrent(){pause();loadController.abort();loadController=new AbortController();sceneSource=null;queuedPlay=false;el('play-game').textContent='▶ Jogar';survival.clearWorld();deathHandled=false;el('game-over').hidden=true;ready=false;worker?.postMessage({kind:'dispose'});worker?.terminate();worker=null;physics.dispose();scene.remove(model.root,model.selection,model.edges);model.dispose();model=new BimModel();physics=new Physics();doors=new Doors();scene.remove(lightDetails.root);lightDetails.dispose();lightDetails=new LightDetails();scene.add(lightDetails.root);scene.add(model.root,model.selection,model.edges);selected=null;currentLevel=null;meta=null;audit=null;input('search').value='';el('results').innerHTML='';el('results').hidden=true;el('import-report')?.remove();updateLevelLabel();clearMeasurement();debugCapsule.visible=false;input('debug').checked=false;mode='orbit';syncMode();}
 async function load(file:File|null){
   const g=++generation;disposeCurrent();lastFile=file;completedStages.clear();loadStart=performance.now();el('loading').hidden=false;el('retry').hidden=true;el('load-title').textContent='Abrindo o seu modelo';el('filename').textContent=file?.name??'REX_EXE_MODELO_COMPLETO_0203.ifc';el('property-content').innerHTML='<div class="empty-state"><h3>Importando IFC…</h3></div>';stage('leitura','Lendo arquivo IFC…');
   try {
-    let buffer:ArrayBuffer;if(file)buffer=await file.arrayBuffer();else{
-      const response=await fetch(new URL('models/hotel-rex.ifc.gz',document.baseURI));if(!response.ok)throw new Error(`Não foi possível ler o IFC de referência (HTTP ${response.status}). Use Abrir IFC para escolher o arquivo.`);
-      const total=Number(response.headers.get('content-length')),reader=response.body?.getReader();if(!reader)buffer=await response.arrayBuffer();else{const chunks:Uint8Array[]=[];let n=0;while(true){const {done,value}=await reader.read();if(done)break;if(g!==generation){reader.cancel();return;}chunks.push(value);n+=value.byteLength;stage('leitura',`Lidos ${fmt(n/1e6,1)}${total?' de '+fmt(total/1e6,1):''} MB`,n,total||undefined);}const all=new Uint8Array(n);let offset=0;for(const c of chunks){all.set(c,offset);offset+=c.length;}buffer=all.buffer;}
+    if(!file){
+      stage('leitura','Baixando o hotel preparado…');
+      const source=await HotelScene.open(new URL('models/scene/',document.baseURI),loadController.signal);if(g!==generation)return;
+      sceneSource=source;meta=source.manifest.meta;model.setMeta(meta);showMetadata();
+      await source.load((definitions,parts)=>{if(g===generation)model.add(definitions,parts);},(done,total)=>stage('geometria',`Carregando geometria: ${fmt(done/1e6,1)} de ${fmt(total/1e6,1)} MB`,done,total));
+      if(g===generation)await finish({...source.manifest.audit,preprocessed:true},g);return;
     }
-    if(g!==generation)return;
-    if(!file&&new Uint8Array(buffer,0,Math.min(2,buffer.byteLength))[0]===0x1f&&new Uint8Array(buffer,0,Math.min(2,buffer.byteLength))[1]===0x8b){stage('leitura','Descompactando o IFC original localmente…');if(typeof DecompressionStream==='undefined')throw new Error('Este navegador não suporta a descompactação local. Use um navegador atualizado ou Abra IFC com o arquivo original.');buffer=await new Response(new Blob([buffer]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();}
+    const buffer=await file.arrayBuffer();
     if(g!==generation)return;
     worker=new Worker(new URL('./ifc.worker.ts',import.meta.url),{type:'module'});
     worker.onerror=e=>fail(`Falha no worker IFC: ${e.message}. Tente novamente ou use um navegador de 64 bits atualizado.`);
@@ -101,10 +104,10 @@ async function load(file:File|null){
       if(data.kind==='geometry'){model.add(data.definitions,data.parts);stage('geometria',`${data.processed.toLocaleString('pt-BR')} partes geométricas processadas`);}
       if(data.kind==='properties')renderProperties(data);
       if(data.kind==='error'){if(data.property){if(el('psets'))el('psets').textContent='Não foi possível consultar propriedades: '+data.message;}else fail(data.message);}
-      if(data.kind==='complete')void finish(data.audit,g).catch(e=>{if(g===generation)fail(e.message);});
+      if(data.kind==='complete')void finish(data.audit,g).catch(e=>{if(g===generation){console.error(e);fail(e.message);}});
     };
     worker.postMessage({kind:'load',buffer,wasm:new URL(`wasm/${IFC_VERSION}/`,document.baseURI).href},[buffer]);
-  }catch(e){if(g===generation)fail(e instanceof Error?e.message:String(e));}
+  }catch(e){if(g===generation){console.error(e);fail(e instanceof Error?e.message:String(e));}}
 }
 function fail(message:string){el('load-title').textContent='Não foi possível concluir a importação';el('load-message').textContent=message;el('retry').hidden=false;el<HTMLProgressElement>('load-progress').removeAttribute('value');el('status').textContent='Falha na importação';console.error(message);}
 async function finish(data:any,g:number){
@@ -114,7 +117,7 @@ async function finish(data:any,g:number){
   audit.bounds=[...model.bounds.min.toArray(),...model.bounds.max.toArray()];audit.triangles=model.parts.reduce((n,p)=>n+model.geometry.get(p.key)!.getIndex()!.count/3,0);audit.metadata=meta;
   showMetadata();grid.position.y=model.bounds.min.y-.015;axes.position.set(0,grid.position.y,0);const slider=input('cut-height');slider.min=String(model.bounds.min.y);slider.max=String(model.bounds.max.y);slider.value=String(model.bounds.max.y-2);el('cut-value').textContent=fmt(number('cut-height'))+' m';
   fit(model.bounds,new T.Vector3(1,.55,1));await breathe();
-  stage('colisões','Construindo colisores das superfícies IFC…');await physics.init(model,(n,t)=>{if(g!==generation)throw new Error('Importação substituída');stage('colisões',`Colisores reais: ${n} / ${t} elementos`,n,t);},doors);if(g!==generation)return;
+  stage('colisões','Construindo colisores das superfícies IFC…');await physics.init(model,(n,t)=>{if(g!==generation)throw new Error('Importação substituída');stage('colisões',`Colisores reais: ${n} / ${t} elementos`,n,t);},doors,{lightweightFurniture:quality.mobile});if(g!==generation)return;audit.collisionDetail=physics.colliderStats;
   lightDetails.attach(model);audit.lighting={emitters:lightDetails.emitters.length,maxLocalLights:4};audit.finishes=[...new Set(model.materials.map(m=>m.userData.finish))];
   stage('colisões','Preparando índice de seleção…');await model.buildBVH();if(g!==generation)return;
   survival.bind(model,physics,doors);ready=true;applyQuality();el('loading').hidden=true;el('status').textContent=`${data.geometryElements.toLocaleString('pt-BR')} elementos${data.errors?.count?' · importação com avisos':' com geometria'}`;el('status').title=data.errors?.count?`${data.errors.count} ocorrências do interpretador. Consulte o diagnóstico em Ajustes.`:'';el('filename').title=`${meta!.schema} · unidade declarada: ${meta!.unit}`;audit.importSeconds=(performance.now()-loadStart)/1000;audit.colliders=physics.colliderElement.size;audit.drawGroups=model.batches.length;
@@ -133,7 +136,8 @@ function touchMode(){return el<HTMLSelectElement>('input-mode').value==='touch'|
 const lookPointers=new Map<number,{x:number;y:number}>();
 function stopTouchPointers(){lookPointers.clear();if(typeof joystickPointer!=='undefined')stopStick();}
 const dragEntry=document.createElement('button');dragEntry.textContent='Usar arraste para olhar';dragEntry.id='drag-entry';el('entry').append(dragEntry);dragEntry.onclick=()=>{dragFallback=true;active=true;syncMode();toast('Navegação ativa. Arraste no modelo para olhar e use WASD para mover. Esc para pausar.');};
-el('enter').onclick=()=>{if(!ready||survival.dead||survival.preparing)return;if(touchMode()){active=true;syncMode();return;}dragFallback=false;renderer.domElement.requestPointerLock()?.catch(()=>{el('own-tab').hidden=false;el<HTMLAnchorElement>('own-tab').href=location.href;toast('Use arrastar para olhar ou abra em uma aba própria.');});};
+function enterWithDrag(){dragFallback=true;active=true;syncMode();toast('Navegação ativa. Arraste no modelo para olhar e use WASD para mover. Esc para pausar.');}
+el('enter').onclick=()=>{if(!ready||survival.dead||survival.preparing)return;if(touchMode()){active=true;syncMode();return;}if(typeof renderer.domElement.requestPointerLock!=='function'){enterWithDrag();return;}dragFallback=false;try{renderer.domElement.requestPointerLock()?.catch(()=>{el('own-tab').hidden=false;el<HTMLAnchorElement>('own-tab').href=location.href;enterWithDrag();});}catch{enterWithDrag();}};
 window.addEventListener('keydown',e=>{if((e.target as HTMLElement).matches('input,select,textarea'))return;if(e.code==='Escape'){pause();syncMode();return;}if((e.code==='KeyE'||e.code==='KeyF')&&mode==='walk'&&active){e.preventDefault();if(!e.repeat)interactDoor();return;}if(e.code==='KeyR'&&mode==='walk'){if(!physics.recover())toast('O ponto seguro não tem espaço livre. Escolha um nível novamente.');return;}if(mode!=='orbit'&&active){keys.add(e.code);if(['Space','KeyW','KeyA','KeyS','KeyD','KeyC','KeyQ','KeyE','ControlLeft','ControlRight'].includes(e.code))e.preventDefault();}});
 window.addEventListener('keyup',e=>keys.delete(e.code));window.addEventListener('blur',()=>{pause();syncMode();});document.addEventListener('visibilitychange',()=>{if(document.hidden){pause();syncMode();}});
 renderer.domElement.addEventListener('pointerdown',e=>{if(survival.dead||survival.preparing)return;if(mode==='orbit'){drag={id:e.pointerId,x:e.clientX,y:e.clientY,startX:e.clientX,startY:e.clientY};return;}if(document.pointerLockElement){pick(0,0);return;}if(touchMode()){if(!active||e.clientX<viewport.getBoundingClientRect().left+viewport.clientWidth*.42)return;lookPointers.set(e.pointerId,{x:e.clientX,y:e.clientY});renderer.domElement.setPointerCapture(e.pointerId);return;}if(!dragFallback)return;active=true;syncMode();drag={id:e.pointerId,x:e.clientX,y:e.clientY,startX:e.clientX,startY:e.clientY};renderer.domElement.setPointerCapture(e.pointerId);});
@@ -228,4 +232,5 @@ function frame(now:number){requestAnimationFrame(frame);const frameSeconds=Math.
 requestAnimationFrame(frame);
 // Read-only observability and explicit user-facing commands support reproducible acceptance tests.
 (window as any).rex={get snapshot(){return {ready,mode,active,currentLevel,selected,audit,position:camera.position.toArray(),grounded:physics.grounded,feet:physics.ready?physics.feet().toArray():null,visible:model.visible.size,inspection:model.inspection(),physicsActive:physics.active,render:renderer.info.render,fps};},get model(){return model;},get doors(){return doors;},get lightDetails(){return lightDetails;},get survival(){return survival;},get quality(){return quality;},get physics(){return physics;},get camera(){return camera;},chooseMode,visitLevel,select,fit,load,resetInspection,pick,setActive:(v:boolean)=>{active=v;syncMode();},setKeys:(list:string[])=>{keys.clear();list.forEach(k=>keys.add(k));},setLook:(y:number,p=0)=>{yaw=y;pitch=p;camera.rotation.set(p,y,0,'YXZ');},toSource:(p:number[])=>{const c=audit?.coordination??new T.Matrix4().toArray();return new T.Vector3(p[0]-c[12],-(p[2]-c[14]),p[1]-c[13]).divideScalar(meta?.unitFactor??1).toArray();}};
+renderer.domElement.addEventListener('webglcontextlost',event=>{event.preventDefault();++generation;loadController.abort();worker?.terminate();worker=null;survival.enabled=false;ready=false;pause();el('loading').hidden=false;fail('A visualização 3D foi interrompida pelo navegador. Feche outras abas e tente abrir o hotel novamente.');el('retry').onclick=()=>location.reload();});
 window.addEventListener('error',e=>console.error('Erro da aplicação:',e.message));void load(null);

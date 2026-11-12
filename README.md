@@ -1,12 +1,12 @@
 # HOTEL REX — BIM EXPLORER
 
-Aplicação local em TypeScript, Vite, Three.js, web-ifc e Rapier. O modelo inicial é uma cópia integral de **REX_EXE_MODELO_COMPLETO_0203.ifc**, fornecido pelo usuário. O processamento e a consulta das propriedades ocorrem no navegador, sem envio do IFC para serviços externos.
+Aplicação em TypeScript, Vite, Three.js, web-ifc e Rapier. O modelo inicial deriva integralmente de **REX_EXE_MODELO_COMPLETO_0203.ifc**, fornecido pelo usuário. O build extrai sua geometria e propriedades para arquivos estáticos; o navegador baixa a geometria em blocos e consulta propriedades sob demanda. O botão Abrir IFC continua processando arquivos locais em worker, sem enviar o IFC para serviços externos.
 
 ## Abrir agora
 
 No Windows, execute **Iniciar.cmd**. O build já está incluído em `dist/`. O inicializador usa Node.js instalado ou o runtime Node do Codex disponível neste computador. O servidor usa somente módulos nativos do Node e fica em segundo plano.
 
-Endereço: **http://127.0.0.1:4173/**. A primeira importação do arquivo de 220 MB levou aproximadamente 50 segundos no navegador integrado desta sessão. Aguarde as quatro etapas reais. O tempo varia conforme o computador.
+Endereço: **http://127.0.0.1:4173/**. Aguarde as etapas de carregamento e preparação dos colisores. O tempo varia conforme o computador e a conexão.
 
 Não abra `dist/index.html` diretamente pelo protocolo `file://`: workers e WASM precisam de HTTP. O botão **Abrir IFC** lê outro arquivo local. Para restaurar o modelo inicial, atualize a página ou abra novamente o arquivo do Hotel Rex.
 
@@ -26,11 +26,11 @@ node scripts/run.mjs build
 node scripts/serve.mjs --background
 ```
 
-O comando de build executa TypeScript e Vite. `pnpm run dev`, `pnpm run build` e `pnpm run preview` também estão definidos. O comando `node scripts/run.mjs preview` usa a prévia do Vite em 4173; use apenas um servidor nessa porta. O servidor próprio `scripts/serve.mjs` pode servir o build sem instalar dependências.
+O comando de build executa TypeScript, prepara a cena estática a partir do IFC e executa Vite. A preparação é reutilizada quando origem, parser, gerador e hashes dos arquivos coincidem. `pnpm run dev`, `pnpm run build` e `pnpm run preview` também estão definidos. O comando `node scripts/run.mjs preview` usa a prévia do Vite em 4173; use apenas um servidor nessa porta. O servidor próprio `scripts/serve.mjs` pode servir o build sem instalar dependências.
 
 O `postinstall` copia `web-ifc.wasm` para `public/wasm`. O WASM do pacote Rapier compat está embutido no bundle local. Vite copia WASM e o IFC para `dist/`. Não há dependência de CDN. Para hospedar, sirva o conteúdo de `dist/` por HTTP(S), incluindo seus subdiretórios.
 
-O modelo inicial agora é distribuído em gzip (44,2 MB) e descompactado no navegador, preservando integralmente o IFC original de 220,3 MB. Isso permite manter o modelo no repositório do GitHub. Consulte **GITHUB.md** para CI, Codespaces e publicação em GitHub Pages.
+O IFC original continua preservado em gzip (44,2 MB, equivalente a 220,3 MB descompactados). A abertura padrão usa 32 blocos preparados, com aproximadamente 35,1 MB compactados; não baixa nem interpreta o IFC completo no Safari. As 3.916 consultas BIM ficam em grupos pequenos, baixados apenas ao selecionar. Referências geométricas do tipo IFC aparecem por expressID, evitando expandir malhas enormes em JSON. Consulte **GITHUB.md** para CI e publicação e [GAMEPLAY.md](GAMEPLAY.md) para compatibilidade e limites de memória.
 
 ## Controles
 

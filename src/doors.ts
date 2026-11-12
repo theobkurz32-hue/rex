@@ -103,7 +103,7 @@ export class Doors {
         }
         if (groups.length >= 2) {
           groups.sort((a, b) => a.box.min.x - b.box.min.x);
-          const end = groups.at(-1)!.box.getCenter(new T.Vector3()).x;
+          const end = groups[groups.length-1].box.getCenter(new T.Vector3()).x;
           for (const group of groups) {
             const distance = end - group.box.getCenter(new T.Vector3()).x;
             if (distance > .05) leaf(group.parts, group.box, group.box.min.x, axis.clone().multiplyScalar(distance));
