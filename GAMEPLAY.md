@@ -1,6 +1,6 @@
 # Hotel Rex — sobrevivência FPS
 
-O modo **Jogar** usa o hotel IFC original em metros, Three.js, Rapier e o carregador web-ifc em worker. As ferramentas BIM, seleção, medições, níveis, voo, materiais, iluminação, portas e janelas continuam disponíveis. Não há armas nem inventário.
+O modo **Jogar** usa o hotel IFC original em metros, Three.js e Rapier. A abertura padrão baixa geometria preparada no build; arquivos escolhidos em Abrir IFC usam web-ifc em worker. As ferramentas BIM, seleção, medições, níveis, voo, materiais, iluminação, portas e janelas continuam disponíveis. Não há armas nem inventário.
 
 ## Iniciar e controlar
 
@@ -49,13 +49,27 @@ Há até 3/5/8 inimigos nos perfis Baixo/Médio/Alto. Os rigs, geometrias, tecid
 
 ## Otimização e limites
 
-Nos perfis Baixo e Médio, os móveis/equipamentos densos usam uma geometria visual reduzida por agrupamento de vértices, com erro limitado a cerca de 2,6 cm; o Alto restaura a geometria completa. Paredes, pisos, escadas, portas e janelas não entram nessa redução, e toda colisão/medição continua usando o IFC original. O modo de diagnóstico restaura a malha completa. No Hotel Rex, a contagem agregada caiu de 7.971.644 para 6.682.695 triângulos (cerca de 16%).
+Nos perfis Baixo e Médio, os móveis/equipamentos densos usam uma geometria visual reduzida por agrupamento de vértices, com erro limitado a cerca de 2,6 cm; o Alto restaura a geometria completa. Paredes, pisos, escadas, portas e janelas não entram nessa redução; seleção e medição continuam usando o IFC original. O modo de diagnóstico restaura a malha visual completa. No Hotel Rex, a contagem agregada caiu de 7.971.644 para 6.682.695 triângulos (cerca de 16%).
 
-O principal custo continua sendo o próprio IFC: cerca de oito milhões de triângulos, 44 MB compactados e aproximadamente 220 MB descompactados. Foram preservados o batching de instâncias, os BVHs de consulta, o worker e a escala do modelo. Os personagens são leves, não requerem downloads de GLB/texturas externos e têm orçamento limitado. O perfil Automático ajusta resolução interna entre limites legíveis; sombras do sol só são habilitadas em Alto. As luzes locais continuam limitadas a quatro.
+Em dispositivos com ponteiro de toque, partes muito densas de móveis/equipamentos usam caixas de colisão conservadoras calculadas das suas próprias dimensões e transformações IFC. As caixas são por parte, preservando os intervalos entre partes, e permanecem agrupadas no mesmo elemento físico. Isso mantém esses objetos como obstáculos sem copiar seus detalhes decorativos para a física. Os contornos curvos desses objetos têm contato aproximado. Paredes, lajes, escadas, rampas, pilares, vigas e folhas móveis de portas/janelas mantêm os triângulos originais; não são criados apoios entre pavimentos. No computador, a física original permanece padrão. `rex.physics.colliderStats` e o diagnóstico informam os totais reais.
 
-As metas de 60 FPS em computador mediano e 30 FPS em celular intermediário **não foram verificadas em hardware físico**. O ambiente disponível é Linux com Chromium headless/SwiftShader. O cenário pequeno de testes ficou em aproximadamente 55–60 FPS nessa condição; isso não representa o desempenho do hotel completo. Emulação touch não equivale a teste em aparelho real. No hotel completo, uma amostra curta de 12 segundos em Chromium headless/SwiftShader, viewport 640×480, perfil Baixo e escala 0,85 terminou com indicador de aproximadamente **0,68 FPS**, 70 chamadas e 348.814 triângulos na vista. Essa medição inclui aquecimento e não é um teste de computador/celular físico; o ambiente de software não atingiu as metas. O carregamento e a renderização do hotel completo continuam pesados sem GPU.
+O principal custo continua sendo a geometria do hotel: cerca de oito milhões de triângulos. O IFC original tem 44 MB compactados e aproximadamente 220 MB descompactados; a abertura preparada evita interpretar esse arquivo no navegador. Foram preservados o batching de instâncias, os BVHs de consulta, o worker para arquivos locais e a escala do modelo. Os personagens são leves, não requerem downloads de GLB/texturas externos e têm orçamento limitado. O perfil Automático ajusta resolução interna entre limites legíveis; sombras do sol só são habilitadas em Alto. As luzes locais continuam limitadas a quatro.
+
+As metas de 60 FPS em computador mediano e 30 FPS em celular intermediário **não foram verificadas em hardware físico**. O ambiente disponível é Linux com Chromium headless/SwiftShader. O cenário pequeno de testes ficou em aproximadamente 55–60 FPS nessa condição; isso não representa o desempenho do hotel completo. Emulação touch não equivale a teste em aparelho real. Na versão inicial de sobrevivência, antes do carregamento preparado para Safari, uma amostra curta de 12 segundos do hotel completo em Chromium headless/SwiftShader, viewport 640×480, perfil Baixo e escala 0,85 terminou com indicador de aproximadamente **0,68 FPS**, 70 chamadas e 348.814 triângulos na vista. Essa medição inclui aquecimento e não é um teste de computador/celular físico; o ambiente de software não atingiu as metas. O carregamento e a renderização do hotel completo continuam pesados sem GPU.
 
 O grafo pode ter componentes desconectados onde a geometria importada não oferece passagem ou altura livre válida. Os inimigos não atravessam paredes para compensar uma rota ausente. Foi validado um trecho real de escadas entre níveis, mas **não foram percorridos manualmente todos os lances e quartos dos 25 registros de nível**. Certos vãos estreitos e encontros de mobiliário ainda podem provocar espera/replanejamento. A triangulação do IFC já apresentava avisos antes destas alterações. Não há simulação de ferragens nem colisão da folha móvel com todos os objetos estáticos.
+
+## Safari e carregamento preparado
+
+O build executa `scripts/prepare-hotel-scene.mjs`, usando o mesmo importador IFC e as mesmas opções do carregamento local. São exportadas 6.160 geometrias únicas e 31.081 partes em 32 blocos de aproximadamente 4 MB descompactados, com 35,06 MB compactados no total. Hashes verificam origem, arrays, transformações e arquivos. A escala e os 7.971.644 triângulos originais permanecem iguais. Arquivos gerados ficam fora do Git e são incluídos no Pages pelo build.
+
+A abertura padrão não baixa o IFC de 220 MB nem inicializa o parser web-ifc. Em uma medição Node, a heap WASM desse parser chegou a aproximadamente 474 MB após extrair o hotel; essa medição explica o custo evitado, não representa uma medida de memória em iPhone. A descompactação dos blocos usa JavaScript e também funciona quando `DecompressionStream` está ausente ou o servidor já descompactou a resposta HTTP.
+
+As propriedades dos 3.916 elementos continuam disponíveis, em 228 grupos baixados sob demanda (1,10 MB compactados no conjunto; maior grupo com aproximadamente 592 KB descompactados). Representações geométricas e posições no painel de propriedades são referências IFC explícitas, evitando expandir uma malha em JSON: o tipo da cortina #501555, por exemplo, passava de 134 MB nessa expansão e agora usa cerca de 3,5 KB. Os atributos semânticos, conjuntos de propriedades e materiais permanecem disponíveis.
+
+No Safari sem captura do mouse, Entrar no jogo ativa o arraste para olhar; no iPhone/iPad, os controles touch continuam independentes dessa API. A entrada do JavaScript foi separada para exibir uma mensagem e Tentar novamente caso a inicialização 3D falhe, em vez de deixar uma tela branca. Falta de WebGL 2 e encerramento por memória do sistema ainda podem impedir dispositivos antigos de executar o hotel.
+
+Validação em WebKit 26.5 no Linux, com viewport mobile e renderização por software: abertura da versão preparada em aproximadamente 13,8 s, partida com três inimigos, 3.037 nós navegáveis, mão/portas e propriedades BIM funcionando; sem erros de página/console e sem baixar o IFC ou WASM do parser. Foi removida a API `DecompressionStream` no teste. A física de toque passou de 7.971.644 para 3.321.100 triângulos, com 1.020 partes decorativas simplificadas. Também foi validada entrada/pausa/retomada em um cenário controlado sem `requestPointerLock`. Após 12 segundos ativos, o indicador mostrou aproximadamente 10,45 FPS, 29 chamadas e 387.364 triângulos na vista (viewport 844×500, Automático); a simulação avançou 8,37 s por causa do limite de subpassos. O RSS final observado foi de 1,76 GiB, com pico amostrado de 1,86 GiB no processo de renderização por software. Essa execução não é comparável diretamente à amostra histórica em Chromium. São testes do motor WebKit e de emulação, **não testes em iPhone, iPad ou Mac físicos**. As metas de 60/30 FPS continuam sem validação em hardware físico, e a compatibilidade não é garantia de funcionamento em todo aparelho.
 
 ## Verificação reproduzível
 
@@ -65,6 +79,8 @@ Requer Node.js 24 e as dependências exatas do lockfile:
 pnpm install --frozen-lockfile
 pnpm run dev
 pnpm run build
+pnpm run test:hotel-scene
+pnpm run test:mobile-colliders
 pnpm run test:render-detail
 pnpm run test:survival
 pnpm run test:survival-hotel

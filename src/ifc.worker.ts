@@ -8,7 +8,29 @@ const diagnostics={count:0,samples:[] as string[]};
 for(const method of ['log','error'] as const){const original=console[method].bind(console);console[method]=(...a:unknown[])=>{if(String(a[0]).includes('[WEB-IFC]')){diagnostics.count++;if(diagnostics.samples.length<12)diagnostics.samples.push(a.join(' '));}else original(...a);};}
 const send=(data:unknown, transfer:Transferable[]=[])=>scope.postMessage(data,transfer);
 const val=(v:any):any=>v?.value??null;
-const serializable=(v:any):any=>{if(v==null||typeof v!=='object')return v;if(Array.isArray(v))return v.map(serializable);const out:Record<string,unknown>={};for(const k of Object.keys(v))out[k]=serializable(v[k]);if('value' in v)out.value=v.value;return out;};
+const geometryProperties=new Set(['RepresentationMaps','Representation','ObjectPlacement']);
+const semanticEntities=new Map<number,unknown>();
+function geometryReference(v:any):any {
+  if(v==null||typeof v!=='object')return v;if(Array.isArray(v))return v.map(geometryReference);
+  const id=v.type===IFC.REF?v.value:v.expressID;
+  return typeof id==='number'?{expressID:id,type:api.GetLineType(model,id),value:id,referenciaGeometrica:true}:v;
+}
+function semanticEntity(id:number,ancestors:Set<number>):any {
+  if(ancestors.has(id))return {expressID:id,type:api.GetLineType(model,id),value:id,referenciaCiclica:true};
+  if(semanticEntities.has(id))return semanticEntities.get(id);
+  const next=new Set(ancestors);next.add(id);const result=serializable(line(id),true,next);semanticEntities.set(id,result);return result;
+}
+// BIM attributes, property sets and materials remain recursive. Geometry and
+// placement links stay explicit references: expanding a single type's mesh in
+// JSON can otherwise allocate more than 130 MB just to open the BIM panel.
+function serializable(v:any,expand=false,ancestors=new Set<number>(),key=''):any {
+  if(geometryProperties.has(key))return geometryReference(v);
+  if(v==null||typeof v!=='object')return v;
+  if(expand&&v.type===IFC.REF&&typeof v.value==='number')return semanticEntity(v.value,ancestors);
+  if(Array.isArray(v))return v.map(item=>serializable(item,expand,ancestors));
+  const out:Record<string,unknown>={};for(const k of Object.keys(v))out[k]=serializable(v[k],expand,ancestors,k);
+  if('value' in v)out.value=v.value;return out;
+}
 const list=(type:number)=>{const v=api.GetLineIDsWithType(model,type); return Array.from({length:v.size()},(_,i)=>v.get(i));};
 const line=(id:number,recursive=false):any=>api.GetLine(model,id,recursive);
 function placementMatrix(placement:any):Matrix4 {
@@ -41,6 +63,7 @@ function metadata():Metadata {
   return {schema:api.GetModelSchema(model),unit:`${prefix?prefix+' / ':''}${name??'Unidade não suportada'}`,unitFactor,levels,elements,counts,spatial:Object.fromEntries(parents),header:api.GetHeaderLine(model,IFC.FILE_NAME)};
 }
 async function load(data:ArrayBuffer, wasm:string) {
+  semanticEntities.clear();
   api=new IFC.IfcAPI();api.SetWasmPath(wasm,true);await api.Init(undefined,true);api.SetLogLevel(IFC.LogLevel.LOG_LEVEL_ERROR);
   send({kind:'stage',stage:'leitura',message:'Interpretando entidades IFC no worker…'});
   model=api.OpenModel(new Uint8Array(data),{COORDINATE_TO_ORIGIN:true,CIRCLE_SEGMENTS:24,MEMORY_LIMIT:2147483648});
@@ -71,11 +94,11 @@ scope.onmessage=async({data})=>{
     if(data.kind==='load') await load(data.buffer,data.wasm);
     if(data.kind==='properties'){
       const id=data.id;
-      const props=await api.properties.getPropertySets(model,id,true);
-      const materials=await api.properties.getMaterialsProperties(model,id,true);
-      const type=await api.properties.getTypeProperties(model,id,true);
-      send({kind:'properties',id,properties:serializable(line(id)),psets:serializable(props),materials:serializable(materials),type:serializable(type)});
+      const props=await api.properties.getPropertySets(model,id,false);
+      const materials=await api.properties.getMaterialsProperties(model,id,false);
+      const type=await api.properties.getTypeProperties(model,id,false);
+      send({kind:'properties',id,properties:serializable(line(id)),psets:serializable(props,true),materials:serializable(materials,true),type:serializable(type,true)});
     }
-    if(data.kind==='dispose'&&model>=0){api.CloseModel(model);model=-1;scope.close();}
+    if(data.kind==='dispose'&&model>=0){semanticEntities.clear();api.CloseModel(model);model=-1;scope.close();}
   } catch(e){send({kind:'error',message:e instanceof Error?e.message:String(e),property:data.kind==='properties'});}
 };

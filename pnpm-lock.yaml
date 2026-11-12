@@ -11,6 +11,9 @@ importers:
       '@dimforge/rapier3d-compat':
         specifier: 0.21.0
         version: 0.21.0
+      fflate:
+        specifier: 0.8.3
+        version: 0.8.3
       three:
         specifier: 0.187.0
         version: 0.187.0

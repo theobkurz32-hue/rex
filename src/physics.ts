@@ -2,19 +2,26 @@ import RAPIER from '@dimforge/rapier3d-compat';
 import * as T from 'three';
 import { BimModel, breathe } from './model';
 import type { Doors, DoorLeaf } from './doors';
+import {canSimplifyCollider,furnitureColliderGeometry} from './collision-detail';
 export const CHARACTER={height:1.75,eye:1.65,radius:.25,crouchHeight:1.1,crouchEye:1,walk:1.4,run:3,gravity:9.81,step:.26,snap:.3};
 export class Physics {
   world!:RAPIER.World;controller!:RAPIER.KinematicCharacterController;body!:RAPIER.RigidBody;capsule!:RAPIER.Collider;
   colliderElement=new Map<number,number>();ready=false;active=false;crouched=false;grounded=false;vy=0;safe=new T.Vector3();safeLevel:number|null=null;height=CHARACTER.height;collisions=0;
   actors=new Set<RAPIER.Collider>();
+  colliderStats={sourceTriangles:0,collisionTriangles:0,simplifiedParts:0};
   private doorBodies=new Map<DoorLeaf,{body:RAPIER.RigidBody;collider:RAPIER.Collider}>();
-  async init(model:BimModel,progress:(n:number,total:number)=>void,doors?:Doors){
+  async init(model:BimModel,progress:(n:number,total:number)=>void,doors?:Doors,options={lightweightFurniture:false}){
     await RAPIER.init();this.world=new RAPIER.World({x:0,y:-CHARACTER.gravity,z:0});this.world.timestep=1/60;
+    this.colliderStats={sourceTriangles:0,collisionTriangles:0,simplifiedParts:0};const proxies=new Map<T.BufferGeometry,T.BufferGeometry>();
     let n=0;for(const [id,allParts] of model.byElement){
-      const parts=allParts.filter(p=>!doors?.moving.has(p));
-      let nv=0,ni=0;for(const p of parts){const g=model.geometry.get(p.key)!;nv+=g.getAttribute('position').count;ni+=g.getIndex()!.count;}
+      const parts=allParts.filter(p=>!doors?.moving.has(p)).map(p=>{
+        const source=model.geometry.get(p.key)!;let geometry=source;this.colliderStats.sourceTriangles+=source.getIndex()!.count/3;
+        if(options.lightweightFurniture&&canSimplifyCollider(model.elements.get(id),source)){if(!proxies.has(source))proxies.set(source,furnitureColliderGeometry(source));geometry=proxies.get(source)!;this.colliderStats.simplifiedParts++;}
+        this.colliderStats.collisionTriangles+=geometry.getIndex()!.count/3;return {part:p,geometry};
+      });
+      let nv=0,ni=0;for(const {geometry:g} of parts){nv+=g.getAttribute('position').count;ni+=g.getIndex()!.count;}
       if(!ni)continue;const positions=new Float32Array(nv*3),indices=new Uint32Array(ni);let vi=0,ii=0;const v=new T.Vector3();
-      for(const p of parts){const g=model.geometry.get(p.key)!,a=g.getAttribute('position'),ix=g.getIndex()!,m=new T.Matrix4().fromArray(p.matrix);for(let i=0;i<a.count;i++){v.fromBufferAttribute(a,i).applyMatrix4(m);v.toArray(positions,(vi+i)*3);}const flip=m.determinant()<0;for(let i=0;i<ix.count;i+=3){indices[ii++]=ix.getX(i)+vi;indices[ii++]=ix.getX(i+(flip?2:1))+vi;indices[ii++]=ix.getX(i+(flip?1:2))+vi;}vi+=a.count;}
+      for(const {part:p,geometry:g} of parts){const a=g.getAttribute('position'),ix=g.getIndex()!,m=new T.Matrix4().fromArray(p.matrix);for(let i=0;i<a.count;i++){v.fromBufferAttribute(a,i).applyMatrix4(m);v.toArray(positions,(vi+i)*3);}const flip=m.determinant()<0;for(let i=0;i<ix.count;i+=3){indices[ii++]=ix.getX(i)+vi;indices[ii++]=ix.getX(i+(flip?2:1))+vi;indices[ii++]=ix.getX(i+(flip?1:2))+vi;}vi+=a.count;}
       const collider=this.world.createCollider(RAPIER.ColliderDesc.trimesh(positions,indices).setFriction(.7));this.colliderElement.set(collider.handle,id);
       if(++n%12===0){progress(n,model.byElement.size);await breathe();}
     }
@@ -22,6 +29,7 @@ export class Physics {
       const vertices:number[]=[],indices:number[]=[];
       for(let j=0;j<leaf.parts.length;j++){
         const p=leaf.parts[j],g=model.geometry.get(p.key)!,a=g.getAttribute('position'),ix=g.getIndex()!,offset=vertices.length/3,m=leaf.originals[j];
+        this.colliderStats.sourceTriangles+=ix.count/3;this.colliderStats.collisionTriangles+=ix.count/3;
         for(let i=0;i<a.count;i++){const v=new T.Vector3().fromBufferAttribute(a,i).applyMatrix4(m).sub(leaf.pivot);vertices.push(v.x,v.y,v.z);}
         const flip=m.determinant()<0;
         for(let i=0;i<ix.count;i+=3)indices.push(ix.getX(i)+offset,ix.getX(i+(flip?2:1))+offset,ix.getX(i+(flip?1:2))+offset);
@@ -33,7 +41,7 @@ export class Physics {
     this.body=this.world.createRigidBody(RAPIER.RigidBodyDesc.kinematicPositionBased().setTranslation(0,-10000,0));
     this.capsule=this.world.createCollider(RAPIER.ColliderDesc.capsule((this.height-2*CHARACTER.radius)/2,CHARACTER.radius),this.body);
     this.controller=this.world.createCharacterController(.015);this.controller.enableAutostep(CHARACTER.step,.23,false);this.controller.enableSnapToGround(CHARACTER.snap);this.controller.setMaxSlopeClimbAngle(Math.PI/4);this.controller.setMinSlopeSlideAngle(Math.PI/3);this.controller.setSlideEnabled(true);
-    this.world.step();this.capsule.setEnabled(false);this.ready=true;
+    for(const geometry of proxies.values())geometry.dispose();this.world.step();this.capsule.setEnabled(false);this.ready=true;
   }
   doorHit(origin:T.Vector3,direction:T.Vector3,reach:number){
     if(!this.ready)return null;
