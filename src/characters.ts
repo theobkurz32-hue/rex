@@ -22,11 +22,11 @@ export class HumanRig {
   root=new T.Group();upper=new T.Group();head=new T.Group();hips=new T.Group();
   legs:{hip:T.Group;knee:T.Group;shoe:T.Group}[]=[];arms:T.Group[]=[];
   phase=0;private age=0;private previous=new T.Vector3();private initialized=false;
-  constructor(public art:CharacterArt,public zombie=false){
-    const skin=art.material(zombie?'#89917a':'#bd9679'),shirt=art.material(zombie?'#6c7764':'#465765',true),pants=art.material(zombie?'#454b48':'#504d43',true),boots=art.material('#242c30',false,.65),sole=art.material('#454d4c'),trim=art.material('#9c9a82'),eye=art.material('#202623');
-    this.root.add(this.upper,this.hips);this.upper.position.set(0,0,zombie?.12:.18);
+  constructor(public art:CharacterArt){
+    const skin=art.material('#bd9679'),shirt=art.material('#465765',true),pants=art.material('#504d43',true),boots=art.material('#242c30',false,.65),sole=art.material('#454d4c'),trim=art.material('#9c9a82'),eye=art.material('#202623');
+    this.root.add(this.upper,this.hips);this.upper.position.set(0,0,.18);
     // Tailored jacket with collar, shoulder seams, placket and a sewn pocket.
-    art.mesh(this.upper,art.box(.37,.40,zombie?.19:.15,.05),shirt,0,1.22);
+    art.mesh(this.upper,art.box(.37,.40,.15,.05),shirt,0,1.22);
     art.mesh(this.upper,art.box(.34,.10,.18,.03),pants,0,.94);
     art.mesh(this.upper,art.box(.032,.32,.016,.006),trim,0,1.23,-.102);
     art.mesh(this.upper,art.box(.095,.09,.015,.01),pants,.10,1.29,-.106);
@@ -48,25 +48,23 @@ export class HumanRig {
       art.mesh(arm,art.taper(.071,.054,.30),shirt,0,-.15);
       art.mesh(arm,art.taper(.05,.037,.25),skin,0,-.415,-.025);
       art.mesh(arm,art.box(.075,.095,.035,.012),skin,0,-.57,-.027);
-      // Ragged elbow/knee accents make enemies distinct without graphic gore.
-      if(zombie)art.mesh(arm,art.box(.08,.055,.016,.006),pants,0,-.27,-.05);
     }
-    if(!zombie){this.head.traverse(o=>o.layers.set(1));this.arms.forEach(a=>a.visible=false);}
+    this.head.traverse(o=>o.layers.set(1));this.arms.forEach(a=>a.visible=false);
   }
   pose(position:T.Vector3,yaw:number,crouched:boolean,dt:number,gesture=0,reaction=0){
     if(!this.initialized){this.previous.copy(position);this.initialized=true;}
     const travelled=Math.min(.2,Math.hypot(position.x-this.previous.x,position.z-this.previous.z));this.previous.copy(position);
     this.phase+=travelled*6.5;this.root.position.copy(position);this.root.rotation.y=yaw;
-    this.age+=dt;const hipHeight=crouched?.57:.86;this.upper.position.y=(crouched?-.30:0)+(this.zombie?Math.sin(this.age*1.7)*.004:0);
+    this.age+=dt;const hipHeight=crouched?.57:.86;this.upper.position.y=crouched?-.30:0;
     const moving=travelled>1e-5;
     for(let i=0;i<2;i++){
       const phase=this.phase+i*Math.PI,stride=moving?Math.sin(phase)*.16:0,lift=moving?Math.max(0,Math.cos(phase))*.035:0;
       const dy=hipHeight-(.075+lift),length=Math.min(.775,Math.hypot(dy,stride)),bend=Math.acos(T.MathUtils.clamp(length/.78,0,1));
       const angle=Math.atan2(stride,dy),leg=this.legs[i];leg.hip.position.y=hipHeight;leg.hip.rotation.x=angle+bend;leg.knee.rotation.x=-2*bend;leg.shoe.rotation.x=-angle+bend;
-      this.arms[i].rotation.x=this.zombie?.25+Math.sin(phase)*.12+gesture*1.05-reaction*.3:0;
-      this.arms[i].rotation.z=this.zombie?(i?-.08:.08):0;
+      this.arms[i].rotation.x=0;
+      this.arms[i].rotation.z=0;
     }
-    this.upper.rotation.x=this.zombie?-.08+reaction*.15:0;this.head.rotation.y=this.zombie?Math.sin(this.age*.7)*.035:0;
+    this.upper.rotation.x=0;this.head.rotation.y=0;
   }
   reset(){this.initialized=false;this.phase=0;this.age=0;}
 }

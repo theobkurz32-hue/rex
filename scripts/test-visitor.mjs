@@ -1,0 +1,19 @@
+import assert from 'node:assert/strict';
+import {build} from 'vite';
+import * as T from 'three';
+await build({configFile:false,logLevel:'error',build:{outDir:'.test-runtime/visitor',lib:{entry:{visitor:'src/visitor.ts',model:'src/model.ts',physics:'src/physics.ts',doors:'src/doors.ts'},formats:['es']},rolldownOptions:{external:['three','three/addons/geometries/RoundedBoxGeometry.js','three-mesh-bvh','@dimforge/rapier3d-compat']}}});
+const {Visitor}=await import('../.test-runtime/visitor/visitor.js'),{BimModel}=await import('../.test-runtime/visitor/model.js'),{Physics}=await import('../.test-runtime/visitor/physics.js'),{Doors}=await import('../.test-runtime/visitor/doors.js');
+const model=new BimModel(),physics=new Physics(),doors=new Doors(),scene=new T.Scene(),camera=new T.PerspectiveCamera(70,1,.035,100);
+let key=1;const definitions=[],parts=[],elements=[];
+function box(id,type,name,size,position){const g=new T.BoxGeometry(...size),p=g.getAttribute('position'),n=g.getAttribute('normal'),vertices=new Float32Array(p.count*6);for(let i=0;i<p.count;i++)vertices.set([p.getX(i),p.getY(i),p.getZ(i),n.getX(i),n.getY(i),n.getZ(i)],i*6);definitions.push({key,vertices,indices:new Uint32Array(g.getIndex().array)});parts.push({id,key:key++,matrix:new T.Matrix4().makeTranslation(...position).toArray(),color:[.7,.5,.3,1]});if(!elements.some(e=>e.id===id))elements.push({id,type,name,storey:null,...(type==='IfcDoor'?{door:{width:.9,height:2.1,operation:'NOTDEFINED'}}:{})});g.dispose();}
+box(1,'IfcSlab','Piso',[8,.2,8],[0,-.1,0]);box(2,'IfcDoor','Porta',[.85,2.1,.025],[0,1.05,-.7]);box(2,'IfcDoor','Porta',[.025,2.12,.1],[-.45,1.06,-.7]);box(2,'IfcDoor','Porta',[.025,2.12,.1],[.45,1.06,-.7]);
+model.setMeta({schema:'IFC4',unit:'METRE',unitFactor:1,levels:[],elements,counts:{},spatial:{},header:{}});model.add(definitions,parts);doors.prepare(model);await model.finalize(()=>{});await physics.init(model,()=>{},doors);assert.ok(physics.teleport(new T.Vector3(0,.03,0),null));camera.position.copy(physics.eye());camera.lookAt(0,camera.position.y,-1);camera.updateMatrixWorld(true);
+const visitor=new Visitor(scene,camera);visitor.bind(physics);const beforeBodies=physics.world.bodies.len();
+const direction=new T.Vector3(0,0,-1),hit=physics.trace(camera.position,direction,.95);assert.equal(hit.id,2);const target={id:2,key:'door:2',label:'Abrir porta',point:hit.point.clone().addScaledVector(direction,-.04),reach:1};const door=doors.items.get(2);let commits=0,valid=true;
+assert.ok(visitor.request(target,()=>{commits++;doors.toggle(door,camera.position);},()=>valid));visitor.step(.1);visitor.visual(.1,0,true,0);assert.equal(commits,0);assert.equal(visitor.arm.root.visible,true);visitor.step(.16);assert.equal(commits,1);assert.equal(door.target,1);visitor.step(.4);assert.equal(commits,1);visitor.visual(.01,0,true,0);assert.equal(visitor.arm.root.visible,false);
+for(let i=0;i<40;i++){doors.update(model,physics,1/60,()=>{});physics.step(0,0,false,false);}assert.equal(door.progress,1);
+assert.ok(visitor.request(target,()=>commits++,()=>valid));visitor.step(.1);valid=false;visitor.step(.3);assert.equal(commits,1,'Walking out of reach cancels the interaction before commit');visitor.clear();
+visitor.visual(.016,0,true,0);for(let i=0;i<20;i++){physics.step(1,0,false,false);visitor.visual(1/60,0,true,0);}assert.notEqual(visitor.player.legs[0].hip.rotation.x,visitor.player.legs[1].hip.rotation.x,'Legs follow actual movement');
+assert.equal(physics.world.bodies.len(),beforeBodies,'A visit must not allocate NPC bodies');
+visitor.clear();visitor.visual(0,0,false,0);assert.equal(visitor.root.visible,false);physics.dispose();model.dispose();
+console.log(JSON.stringify({pass:true,checks:['physical-door-reach','hand-before-commit','one-action-per-gesture','cancel-out-of-reach','animated-body','no-NPC-allocation','clear-pause']}));

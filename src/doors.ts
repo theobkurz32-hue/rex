@@ -14,7 +14,7 @@ export interface DoorLeaf {
 export interface Door {
   id: number;
   kind: 'swing' | 'double' | 'slide' | 'tilt';
-  category?: 'window';
+  category?: 'window' | 'shower' | 'curtain' | 'elevator';
   leaves: DoorLeaf[];
   normal: T.Vector3;
   center: T.Vector3;
@@ -174,6 +174,7 @@ export class Doors {
   update(model: BimModel, physics: Physics, dt: number, onBlocked: () => void) {
     const changed = new Set<number>();
     for (const door of this.items.values()) {
+      if (door.category === 'elevator') continue;
       if (door.progress === door.target) continue;
       const old = door.progress, direction = Math.sign(door.target - old);
       const end = T.MathUtils.clamp(old + direction * Math.min(dt, .1) / .5, 0, 1);

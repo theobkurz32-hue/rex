@@ -1,79 +1,38 @@
-# Hotel Rex — sobrevivência FPS
+# Hotel Rex — visita interativa no celular
 
-O modo **Jogar** usa o hotel IFC original em metros, Three.js e Rapier. A abertura padrão baixa geometria preparada no build; arquivos escolhidos em Abrir IFC usam web-ifc em worker. As ferramentas BIM, seleção, medições, níveis, voo, materiais, iluminação, portas e janelas continuam disponíveis. Não há armas nem inventário.
+A experiência é de exploração do hotel. O sistema de combate, as ameaças, as barras de dano e a navegação de inimigos foram retirados. O corpo e a mão em primeira pessoa continuam animados. A arquitetura deriva do IFC original, em metros, com adaptações operacionais explícitas para as interações.
 
-## Iniciar e controlar
+## Entrar e explorar
 
-1. Clique em **Jogar**; também é possível deixar o início agendado enquanto o hotel importa. Sem pavimento selecionado, o jogo procura o nível com mais portas de quartos; no Hotel Rex, inicia em Tipo 1.
-2. Aguarde **Preparando partida**. O grafo é calculado a partir de superfícies e colisões reais.
-3. Clique em **Entrar no jogo** para autorizar a captura do mouse. Depois basta mover o mouse; não é necessário arrastar. **Esc** libera o cursor e pausa toda a simulação. **Retomar partida** captura novamente.
+No celular, a preparação abre um ponto de visita no Tipo 1; toque em **Iniciar visita**. A interface funciona na vertical e na horizontal. O joystick esquerdo move; arraste na área direita para olhar. Use o botão contextual para interagir com o objeto próximo. Agachar, correr, pausar e os controles de voo têm botões de toque. Movimentação, olhar e interação aceitam contatos simultâneos.
 
-| Computador | Ação |
-|---|---|
-| Mouse | Olhar, sem deslocamento automático |
-| WASD | Mover em relação à câmera; diagonal normalizada |
-| Shift | Correr enquanto houver condição física |
-| Ctrl ou C | Agachar; solte para tentar levantar com altura livre |
-| Espaço | Saltar quando apoiado |
-| E | Alcançar e interagir com porta/janela próxima; F permanece como atalho compatível |
-| Esc | Pausar e liberar o cursor |
-| R | Retornar ao último apoio seguro |
+**Pavimentos**, **Detalhes** e **Ajustes** abrem painéis com rolagem e botão de fechar. Só um painel fica aberto por vez no celular. Abrir esses painéis pausa a visita; **Retomar visita** volta aos controles. A área 3D considera a altura disponível do Safari e as áreas seguras da tela. Não é necessário girar o aparelho para jogar.
 
-No celular, entre com **Entrar no jogo**, mova pelo joystick esquerdo e arraste na área direita para olhar. Correr e Agachar funcionam enquanto pressionados. O botão contextual executa a interação no início do toque e pode ser usado simultaneamente ao joystick e ao olhar. Há botões de salto e pausa. O layout recomenda paisagem e considera áreas seguras; não depende de Pointer Lock. Em Ajustes, é possível escolher **Automático**, **Teclado e mouse** ou **Toque** em aparelhos híbridos.
+No computador: mouse para olhar após Iniciar visita, WASD para mover, Shift para correr, Ctrl/C para agachar, Espaço para saltar, E/F para interagir, Esc para pausar e R para retornar ao último apoio seguro. Quando a captura do mouse não estiver disponível, use o arraste. Voar usa WASD e Q/E. As ferramentas BIM, filtros, seleção, medições, cortes e leitura de propriedades continuam disponíveis.
 
-Ajustes preserva sensibilidade e FOV e acrescenta inversão vertical, balanço Discreto/Reduzido/Desligado e perfis Baixo/Médio/Alto/Automático. A preferência de movimento reduzido do navegador desliga o balanço inicialmente.
+## Interações
 
-## Corpo, interações e barras
+Portas e janelas mantêm a folha móvel e seu colisor; as ferragens externas ficam no lugar. A interação exige proximidade e caminho livre; a mão alcança o objeto antes de disparar a ação. A cápsula impede que uma folha feche sobre o visitante.
 
-O corpo estilizado é um rig 3D próprio, com roupa texturizada proceduralmente, costuras, bolso, punhos e botas com solas. As pernas usam articulações de quadril/joelho/tornozelo e animam pela distância efetivamente percorrida. A cabeça fica fora da camada da câmera e pode participar da sombra no perfil Alto. O tronco recuado deixa os pés visíveis ao olhar para baixo. Não há imagens de pernas sobrepostas à tela.
+As 32 torneiras e os 41 chuveiros têm ligar/desligar pelo botão contextual. A água é um efeito visual leve, ancorado na bica ou no espalhador, limitado às proximidades do visitante. Não simula água acumulada ou hidráulica. Quando falta um registro explícito no IFC, um controle cromado acessível integra a visualização do chuveiro. O vidro móvel dos 24 boxes abre e fecha, preservando trilhos, painéis fixos e a largura real dos vãos. A cápsula do celular usa raio de 20 cm para circular pelos vãos menores.
 
-Uma mão com dedos e antebraço alcança a folha antes do comando de abrir/fechar. O gesto dura aproximadamente 0,65 s; a ação é disparada após 0,26 s. A interação exige alcance de aproximadamente 1 m, linha de visão e um trajeto livre para a mão. O jogador pode continuar olhando e se movendo. Portas e janelas mantêm sua animação e seus colisores; a folha para também se encontrar um inimigo.
+As 50 cortinas com geometria (85 painéis de tecido; dois registros IFC não possuem malha) recolhem o próprio tecido para as laterais do trilho; argolas acompanham e trilhos permanecem fixos. Um shader aplica vento suave perto do visitante, mais intenso junto a janelas abertas. O pano é tratado como tecido flexível, sem um colisor rígido bloqueando a passagem; paredes e vidros continuam físicos. Não há atualização dos milhares de vértices do pano pela CPU a cada quadro.
 
-- **Vida (0–100):** ataques diminuem a vida. Em zero, o cursor é liberado, a partida para e aparece Reiniciar.
-- **Saúde / condição (0–100):** correr consome 20 pontos/s; caminhar recupera 12/s e repousar recupera 22/s. Ao esgotar, é necessário recuperar pelo menos 15 pontos antes de correr novamente.
-- **Adrenalina (0–100):** cresce com ameaças próximas e cai em segurança. Concede até 12% de bônus na corrida.
+O elevador usa as portas e o poço identificados no IFC, com uma cabine operacional leve. O modelo de origem continha conjuntos de porta/botões sem cabine e lajes cobrindo trechos do poço: a visualização recorta somente o retângulo interno desse vão, preservando as superfícies externas e o arquivo IFC original. O mapeamento dos recortes e paradas fica em `rex.elevator.snapshot.adaptation`. Chame pelo botão contextual, entre, abra o painel e escolha um dos pavimentos atendidos. As portas precisam fechar antes da viagem; o visitante é transportado incrementalmente com a cabine e mantém colisão com a estrutura externa.
 
-Os parâmetros centrais ficam em `src/vitals.ts`. As barras exibem nomes e números, sem depender apenas de cores. O feedback de dano é discreto, sem pulsação contínua.
+## Qualidade e estabilidade no celular
 
-## Navegação e inimigos
+Alta no celular aumenta a nitidez dentro de um limite seguro; não ativa sombras de 2048 px nem carrega novamente as malhas integrais. Todos os perfis do celular mantêm a geometria visual reduzida e as sombras desligadas. A resolução tem orçamento de 700 mil pixels, considerando a orientação. Automático adapta a escala interna à taxa real de quadros. Uma troca de perfil ou orientação redimensiona o framebuffer uma única vez, quando necessário.
 
-`src/navigation.ts` amostra os pisos reais com raios, valida espaço corporal e cria ligações por varredura de cápsulas. Degraus recebem pontos extras das faces horizontais do próprio IFC; vãos de portas recebem pontos alinhados ao centro do batente. Não são adicionados pisos invisíveis. A amostra do hotel completo gerou aproximadamente 3,1 mil nós.
+Os buffers visuais móveis são dimensionados para as malhas reduzidas desde a preparação, em vez de reservar a geometria completa para depois sobrescrevê-la. Seleção e medição continuam consultando as geometrias de origem. As animações atualizam limites conservadores das partes que se moveram, sem varrer todas as instâncias do prédio a cada quadro. Sem movimento, a vista reduz a frequência de desenho; em outra aba, a visita pausa.
 
-Portas fechadas são arestas com expressID, não paredes removidas. O custo de rota depende do estado da porta. O inimigo se aproxima, gesticula, abre, espera a passagem ficar livre e atravessa com um controlador Rapier próprio. Colisões com paredes, mobiliário, lajes, jogador e outros inimigos continuam ativas. Arestas onde houve bloqueio físico são evitadas temporariamente, permitindo tentar outro caminho. A busca usa A*, não apenas uma direção reta até o jogador.
+Partes densas de mobiliário usam caixas conservadoras por parte na física móvel, preservando os espaços entre componentes. Paredes, pisos, escadas, rampas, pilares, vigas e folhas móveis mantêm as superfícies originais, salvo a adaptação operacional explícita no vão do elevador. O contato de objetos decorativos curvos é aproximado. Arestas pesadas e wireframe completo ficam no computador; o diagnóstico no celular mostra a cápsula.
 
-Os estados são espera, aproximação da porta, abertura, espera por espaço, saída, perseguição, ataque, busca, retorno e reação. Visão usa linha de visão; proximidade e ruído de caminhada/corrida podem alertar um inimigo oculto. Ao perder contato, ele procura a última posição percebida e pode retornar. O ataque tem preparação, alcance, teste de visão e intervalo. Não causa dano através de portas ou pavimentos.
+O carregamento preparado tem 32 blocos, aproximadamente 35,06 MB compactados, sem abrir o IFC de 220 MB e o parser no navegador. Os 3.916 elementos BIM têm propriedades em grupos sob demanda. A origem, coordenadas, índices e transformações exportados são verificados por hash. As representações geométricas no painel BIM são referências IFC, evitando expandir malhas enormes em JSON. Arquivos escolhidos em Abrir IFC continuam usando o worker.
 
-O IFC contém somente três `IfcSpace`, insuficientes para identificar todos os quartos semanticamente. O mapeamento de jogo usa portas semi-ocas, pisos válidos dos dois lados, rotas que cruzam essa porta e pontos ocultos da visão inicial. O resultado explícito porta/nó interno/nó externo é consultável em `rex.survival.snapshot.rooms`. A designação “quarto” é uma aproximação geométrica e pode incluir ambientes de serviço ou banheiros. Nenhum inimigo é colocado em posição visível nem teleportado durante a perseguição.
+## Executar e verificar
 
-Há até 3/5/8 inimigos nos perfis Baixo/Médio/Alto. Os rigs, geometrias, tecidos e materiais são compartilhados e reutilizados no reinício. IA distante pensa com menor frequência, e animação distante usa atualização reduzida. Reinício remove corpos/controladores antigos, restaura portas, barras e posições seguras e reutiliza o grafo.
-
-## Otimização e limites
-
-Nos perfis Baixo e Médio, os móveis/equipamentos densos usam uma geometria visual reduzida por agrupamento de vértices, com erro limitado a cerca de 2,6 cm; o Alto restaura a geometria completa. Paredes, pisos, escadas, portas e janelas não entram nessa redução; seleção e medição continuam usando o IFC original. O modo de diagnóstico restaura a malha visual completa. No Hotel Rex, a contagem agregada caiu de 7.971.644 para 6.682.695 triângulos (cerca de 16%).
-
-Em dispositivos com ponteiro de toque, partes muito densas de móveis/equipamentos usam caixas de colisão conservadoras calculadas das suas próprias dimensões e transformações IFC. As caixas são por parte, preservando os intervalos entre partes, e permanecem agrupadas no mesmo elemento físico. Isso mantém esses objetos como obstáculos sem copiar seus detalhes decorativos para a física. Os contornos curvos desses objetos têm contato aproximado. Paredes, lajes, escadas, rampas, pilares, vigas e folhas móveis de portas/janelas mantêm os triângulos originais; não são criados apoios entre pavimentos. No computador, a física original permanece padrão. `rex.physics.colliderStats` e o diagnóstico informam os totais reais.
-
-O principal custo continua sendo a geometria do hotel: cerca de oito milhões de triângulos. O IFC original tem 44 MB compactados e aproximadamente 220 MB descompactados; a abertura preparada evita interpretar esse arquivo no navegador. Foram preservados o batching de instâncias, os BVHs de consulta, o worker para arquivos locais e a escala do modelo. Os personagens são leves, não requerem downloads de GLB/texturas externos e têm orçamento limitado. O perfil Automático ajusta resolução interna entre limites legíveis; sombras do sol só são habilitadas em Alto. As luzes locais continuam limitadas a quatro.
-
-As metas de 60 FPS em computador mediano e 30 FPS em celular intermediário **não foram verificadas em hardware físico**. O ambiente disponível é Linux com Chromium headless/SwiftShader. O cenário pequeno de testes ficou em aproximadamente 55–60 FPS nessa condição; isso não representa o desempenho do hotel completo. Emulação touch não equivale a teste em aparelho real. Na versão inicial de sobrevivência, antes do carregamento preparado para Safari, uma amostra curta de 12 segundos do hotel completo em Chromium headless/SwiftShader, viewport 640×480, perfil Baixo e escala 0,85 terminou com indicador de aproximadamente **0,68 FPS**, 70 chamadas e 348.814 triângulos na vista. Essa medição inclui aquecimento e não é um teste de computador/celular físico; o ambiente de software não atingiu as metas. O carregamento e a renderização do hotel completo continuam pesados sem GPU.
-
-O grafo pode ter componentes desconectados onde a geometria importada não oferece passagem ou altura livre válida. Os inimigos não atravessam paredes para compensar uma rota ausente. Foi validado um trecho real de escadas entre níveis, mas **não foram percorridos manualmente todos os lances e quartos dos 25 registros de nível**. Certos vãos estreitos e encontros de mobiliário ainda podem provocar espera/replanejamento. A triangulação do IFC já apresentava avisos antes destas alterações. Não há simulação de ferragens nem colisão da folha móvel com todos os objetos estáticos.
-
-## Safari e carregamento preparado
-
-O build executa `scripts/prepare-hotel-scene.mjs`, usando o mesmo importador IFC e as mesmas opções do carregamento local. São exportadas 6.160 geometrias únicas e 31.081 partes em 32 blocos de aproximadamente 4 MB descompactados, com 35,06 MB compactados no total. Hashes verificam origem, arrays, transformações e arquivos. A escala e os 7.971.644 triângulos originais permanecem iguais. Arquivos gerados ficam fora do Git e são incluídos no Pages pelo build.
-
-A abertura padrão não baixa o IFC de 220 MB nem inicializa o parser web-ifc. Em uma medição Node, a heap WASM desse parser chegou a aproximadamente 474 MB após extrair o hotel; essa medição explica o custo evitado, não representa uma medida de memória em iPhone. A descompactação dos blocos usa JavaScript e também funciona quando `DecompressionStream` está ausente ou o servidor já descompactou a resposta HTTP.
-
-As propriedades dos 3.916 elementos continuam disponíveis, em 228 grupos baixados sob demanda (1,10 MB compactados no conjunto; maior grupo com aproximadamente 592 KB descompactados). Representações geométricas e posições no painel de propriedades são referências IFC explícitas, evitando expandir uma malha em JSON: o tipo da cortina #501555, por exemplo, passava de 134 MB nessa expansão e agora usa cerca de 3,5 KB. Os atributos semânticos, conjuntos de propriedades e materiais permanecem disponíveis.
-
-No Safari sem captura do mouse, Entrar no jogo ativa o arraste para olhar; no iPhone/iPad, os controles touch continuam independentes dessa API. A entrada do JavaScript foi separada para exibir uma mensagem e Tentar novamente caso a inicialização 3D falhe, em vez de deixar uma tela branca. Falta de WebGL 2 e encerramento por memória do sistema ainda podem impedir dispositivos antigos de executar o hotel.
-
-Validação em WebKit 26.5 no Linux, com viewport mobile e renderização por software: abertura da versão preparada em aproximadamente 13,8 s, partida com três inimigos, 3.037 nós navegáveis, mão/portas e propriedades BIM funcionando; sem erros de página/console e sem baixar o IFC ou WASM do parser. Foi removida a API `DecompressionStream` no teste. A física de toque passou de 7.971.644 para 3.321.100 triângulos, com 1.020 partes decorativas simplificadas. Também foi validada entrada/pausa/retomada em um cenário controlado sem `requestPointerLock`. Após 12 segundos ativos, o indicador mostrou aproximadamente 10,45 FPS, 29 chamadas e 387.364 triângulos na vista (viewport 844×500, Automático); a simulação avançou 8,37 s por causa do limite de subpassos. O RSS final observado foi de 1,76 GiB, com pico amostrado de 1,86 GiB no processo de renderização por software. Essa execução não é comparável diretamente à amostra histórica em Chromium. São testes do motor WebKit e de emulação, **não testes em iPhone, iPad ou Mac físicos**. As metas de 60/30 FPS continuam sem validação em hardware físico, e a compatibilidade não é garantia de funcionamento em todo aparelho.
-
-## Verificação reproduzível
-
-Requer Node.js 24 e as dependências exatas do lockfile:
+Requer Node.js 24 e dependências do lockfile:
 
 ```sh
 pnpm install --frozen-lockfile
@@ -81,21 +40,23 @@ pnpm run dev
 pnpm run build
 pnpm run test:hotel-scene
 pnpm run test:mobile-colliders
-pnpm run test:render-detail
-pnpm run test:survival
-pnpm run test:survival-hotel
+pnpm run test:quality
+pnpm run test:visitor
+pnpm run test:water
+pnpm run test:curtains
+pnpm run test:elevator
 pnpm run test:doors
 pnpm run test:windows
 pnpm run test:appearance
 pnpm run test:selection
 ```
 
-`test:survival` usa uma cena física controlada para verificar deslocamento em 30/60/120 Hz, consumo das barras, navegação por varredura, spawn oculto, abertura antes da passagem, ataques/morte, mão sincronizada, bloqueio da folha por inimigo, pernas articuladas e reinício sem acumular corpos, porta aberta antes da geração do grafo e cancelamento seguro durante a troca de arquivo.
+O build prepara a cena estática a partir do IFC, reutiliza arquivos somente quando hashes e versões coincidem e publica todos os recursos relativos ao caminho `/rex/`. O CI executa os testes antes da integração; a publicação usa o workflow manual do Pages.
 
-`test:survival-hotel` usa o IFC completo original, gera o grafo, posiciona inimigos ocultos e verifica abertura/saída. No caso registrado, cinco inimigos foram preparados no Tipo 1 e houve ataques reais até a morte do jogador. Um percurso físico de escadas teve subida de aproximadamente 4,79 m e descida de 4,68 m; a continuação do percurso encontrou um batente de porta, portanto não equivale a certificar todos os corredores.
+No WebKit foram verificadas as telas 390×844, 360×640 e 844×390, a rotação com vista pausada, 100 trocas de qualidade, torneira/chuveiro/cortina e chamada/painel/viagem do elevador usando os controles da página, sem erros de página ou console. No Chromium, três contatos reais via protocolo do navegador verificaram movimento, olhar e ação simultâneos na vertical.
 
-No navegador foram verificados: Pointer Lock após gesto, olhar sem andar, pernas animadas, mão na interação, E, pausa/retomada, condição física real, morte/reinício e três toques simultâneos para movimento/olhar/interação. Não houve erro crítico de página nesses testes do cenário controlado. Também foi iniciado o jogo no hotel completo no Chromium, com três inimigos ocultos, navegação pronta, estados de abertura e HUD real, sem erro crítico de console. O código usa os caminhos relativos existentes para WASM, worker e IFC em `/rex/`.
+Os testes de qualidade usam o hotel real e alternam perfis repetidamente, verificando que o celular não copia/realoque geometrias nem liga sombras. Os testes de visita verificam mão antes da ação, cancelamento por perda de alcance, pernas e ausência de corpos de inimigos. Os módulos de água, cortinas e elevador têm cenários físicos controlados e inspeção do cache real.
 
-Arquivos principais: `src/main.ts` (integração/controles/HUD), `src/survival.ts` (partida e IA), `src/navigation.ts` (grafo/A*), `src/characters.ts` (rigs e mãos), `src/vitals.ts` (barras), `src/quality.ts` (perfis), `src/render-detail.ts` (redução visual reversível), `src/physics.ts` (colisões) e `src/doors.ts` (interações).
+As verificações de navegador usam Chromium e WebKit em Linux com renderização por software e emulação de toque. Isso não equivale a medir Safari em iPhone/iPad/Mac físicos. O hotel continua grande; a troca de qualidade foi protegida, mas não é possível garantir ausência de limites de memória ou 30/60 FPS em todo aparelho. Também não foram percorridos manualmente todos os ambientes de todos os registros de pavimento. As interações representam uma adaptação de visita, sem simulação de ferragens, engenharia do elevador, tecido físico ou hidráulica real.
 
-O workflow de CI executa os testes de sobrevivência. A publicação continua pelo workflow manual **Publicar no GitHub Pages**, após integrar a alteração em `main`.
+Arquivos principais: `main.ts` integra controles e módulos; `mobile-ui.ts` e `style.css` cuidam dos painéis e da vertical; `quality.ts` e `model.ts` controlam custos; `visitor.ts` e `characters.ts` animam corpo/mão; `water.ts`, `curtains.ts` e `elevator.ts` implementam as interações; `physics.ts` e `doors.ts` mantêm os contatos.

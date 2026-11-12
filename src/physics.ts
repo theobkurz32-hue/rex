@@ -48,6 +48,12 @@ export class Physics {
     const hit=this.world.castRay(new RAPIER.Ray(origin,direction),reach,true,undefined,undefined,this.capsule,this.body);
     return hit?this.colliderElement.get(hit.collider.handle)??null:null;
   }
+  trace(origin:T.Vector3,direction:T.Vector3,reach:number){
+    if(!this.ready)return null;
+    const hit=this.world.castRay(new RAPIER.Ray(origin,direction),reach,true,undefined,undefined,this.capsule,this.body);
+    if(!hit)return null;const id=this.colliderElement.get(hit.collider.handle);
+    return id==null?null:{id,distance:hit.timeOfImpact,point:origin.clone().addScaledVector(direction,hit.timeOfImpact)};
+  }
   moveDoor(leaves:DoorLeaf[],transforms:T.Matrix4[]){
     const poses=leaves.map((leaf,i)=>({entry:this.doorBodies.get(leaf)!,position:leaf.pivot.clone().applyMatrix4(transforms[i]),rotation:new T.Quaternion().setFromRotationMatrix(transforms[i])}));
     for(const {entry,position,rotation} of poses){
@@ -81,6 +87,18 @@ export class Physics {
   }
   teleport(feet:T.Vector3,level:number|null){if(!this.clearAt(feet))return false;this.height=CHARACTER.height;this.crouched=false;this.capsule.setShape(new RAPIER.Capsule((this.height-2*CHARACTER.radius)/2,CHARACTER.radius));this.capsule.setEnabled(true);this.body.setTranslation({x:feet.x,y:feet.y+this.height/2,z:feet.z},true);this.body.setNextKinematicTranslation(this.body.translation());this.world.step();this.safe.copy(feet);this.safeLevel=level;this.vy=0;this.grounded=false;this.active=true;return true;}
   suspend(){this.active=false;if(this.capsule)this.capsule.setEnabled(false);}
+  /** Move a passenger with a platform, keeping all external shaft collisions. */
+  carry(delta:T.Vector3,excluded:Set<RAPIER.Collider>){
+    if(!this.ready||!this.active)return false;
+    const position=this.body.translation(),target={x:position.x+delta.x,y:position.y+delta.y,z:position.z+delta.z};
+    const filter=(collider:RAPIER.Collider)=>collider.handle!==this.capsule.handle&&!excluded.has(collider);
+    const hit=this.world.castShape(position,this.body.rotation(),delta,this.capsule.shape,.001,1,true,undefined,undefined,this.capsule,this.body,filter);
+    if(hit&&hit.time_of_impact<.99)return false;
+    if(this.world.intersectionWithShape(target,this.body.rotation(),this.capsule.shape,undefined,undefined,this.capsule,this.body,filter))return false;
+    // Platform motion must preserve relative jump/gravity state; otherwise a
+    // held jump would be re-triggered every frame by a forced grounded flag.
+    this.body.setTranslation(target,true);this.body.setNextKinematicTranslation(target);this.safe.add(delta);this.world.propagateModifiedBodyPositionsToColliders();return true;
+  }
   recover(){return this.teleport(this.safe,this.safeLevel);}
   feet(){const p=this.body.translation();return new T.Vector3(p.x,p.y-this.height/2,p.z);}
   crouch(wanted:boolean){if(wanted===this.crouched)return;const feet=this.feet(),h=wanted?CHARACTER.crouchHeight:CHARACTER.height;if(!wanted&&!this.clearAt(feet,h))return;this.crouched=wanted;this.height=h;this.capsule.setShape(new RAPIER.Capsule((h-2*CHARACTER.radius)/2,CHARACTER.radius));this.body.setTranslation({x:feet.x,y:feet.y+h/2,z:feet.z},true);this.body.setNextKinematicTranslation(this.body.translation());this.world.step();}
