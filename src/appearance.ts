@@ -14,6 +14,8 @@ const finish = (key: string, color: string, roughness = .85, metalness = 0, opac
 export function appearanceFor(element: ElementInfo | undefined, part: Part): Finish {
   const type = (element?.type ?? '').toLowerCase(), name = (element?.name ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
   const c = part.color;
+  const cloth = part as Part & {curtainCloth?: boolean; curtainHemMin?: number; curtainHemMax?: number};
+  if (cloth.curtainCloth) return finish(`curtain-cloth|${Math.max(.35, c[3]).toFixed(2)}|${cloth.curtainHemMin ?? -1.3}|${cloth.curtainHemMax ?? 1.3}`, '#e8e3d8', .96, 0, Math.max(.35, c[3]));
   if (/fita.*led|led.*strip/.test(name) || /luminaria|lightfixture|lamp/.test(name) && c[3] < .95) return {...finish('warm-emitter', '#fff1cf', .35), emissive: true};
   if (c[3] < .5 && !/cortina|tecido|curtain/.test(name) || /vidro/.test(name) && /wall|curtain/.test(type)) return finish('glass', '#c6e1e5', .12, .08, .24);
   if (/slab|stairflight|stair|ramp/.test(type) || /covering/.test(type) && !/forro|teto|ceiling/.test(name)) {

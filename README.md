@@ -107,8 +107,10 @@ As 98 janelas respondem a **E** (ou F) ou ao botão de toque, no modo Caminhar e
 
 Testes adicionais: `npm run test:windows` valida as 98 janelas reais, abertura/fechamento, caixilhos estáticos, transformações espelhadas, colisão nas folhas móveis e vãos, seleção e transparência. `npm run test:appearance` verifica a paleta semântica, vidro, emissão nos bulbos, orçamento de luzes, oclusão, filtros, modo de desempenho e descarte dos recursos.
 
-## Sobrevivência FPS
+## Visita interativa para celular
 
-Clique em **Jogar**, aguarde a preparação das rotas e use **Entrar no jogo** para capturar o mouse. WASD move, Shift corre, Ctrl/C agacha, E interage, Esc pausa. O celular usa joystick, olhar na área direita e botões simultâneos. Há corpo e mãos 3D animados, zumbis com navegação e abertura de portas, barras reais de vida/condição/adrenalina e reinício. As ferramentas BIM continuam disponíveis.
+A experiência agora é de exploração, com interface para vertical e horizontal, corpo/mão animados e sem combate. No celular, entre com **Iniciar visita**; mova pelo joystick esquerdo e olhe arrastando à direita. Aproxime-se para usar o botão contextual. Portas, janelas, boxes, torneiras, chuveiros, cortinas e elevador têm interações próprias. Pavimentos, detalhes e ajustes usam painéis com rolagem e fechamento fácil.
 
-Consulte [GAMEPLAY.md](GAMEPLAY.md) para controles completos, arquitetura, testes, otimização, condições de medição e limitações reais.
+As trocas de qualidade no celular mantêm limites de resolução, sombras desligadas e buffers reduzidos fixos. Não restauram as malhas mais pesadas durante a visita. As funções avançadas de inspeção continuam no computador.
+
+Consulte [GAMEPLAY.md](GAMEPLAY.md) para controles, adaptações no elevador, testes, custos e limitações reais.

@@ -13,13 +13,16 @@
     "test:hotel-scene": "node scripts/test-hotel-scene.mjs",
     "test:mobile-colliders": "node scripts/test-mobile-colliders.mjs",
     "test:render-detail": "node scripts/test-render-detail.mjs",
-    "test:survival": "node scripts/test-survival.mjs",
-    "test:survival-hotel": "node scripts/test-survival-hotel.mjs",
     "test:windows": "node scripts/test-windows.mjs",
     "test:appearance": "node scripts/test-appearance.mjs",
     "test:doors": "node scripts/test-doors.mjs",
     "test:physics": "node scripts/test-physics.mjs",
-    "test:selection": "node scripts/test-selection.mjs"
+    "test:selection": "node scripts/test-selection.mjs",
+    "test:visitor": "node scripts/test-visitor.mjs",
+    "test:quality": "node scripts/test-quality.mjs",
+    "test:water": "node scripts/test-water.mjs",
+    "test:curtains": "node scripts/test-curtains.mjs",
+    "test:elevator": "node scripts/test-elevator.mjs"
   },
   "dependencies": {
     "@dimforge/rapier3d-compat": "0.21.0",

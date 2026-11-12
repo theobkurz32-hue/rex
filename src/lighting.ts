@@ -20,7 +20,7 @@ export class LightDetails {
     }
     this.glowTexture = new T.DataTexture(data, size, size); this.glowTexture.colorSpace = T.SRGBColorSpace; this.glowTexture.needsUpdate = true;
     this.glowMaterial = new T.SpriteMaterial({map: this.glowTexture, transparent: true, depthWrite: false, depthTest: true, blending: T.AdditiveBlending, toneMapped: false});
-    for (let i = 0; i < 4; i++) { const light = new T.PointLight('#ffdeb0', 0, 3, 2); this.pool.push(light); this.root.add(light); }
+    for (let i = 0; i < 4; i++) { const light = new T.PointLight('#ffdeb0', 0, 3, 2); light.visible = false; this.pool.push(light); this.root.add(light); }
   }
   attach(model: BimModel) {
     const seen = new Set<number>();
@@ -54,7 +54,7 @@ export class LightDetails {
       if (obstruction != null && obstruction !== e.id) continue;
       chosen.push(e); if (chosen.length === this.pool.length) break;
     }
-    this.pool.forEach((light, i) => { const e = chosen[i]; light.intensity = e ? 4 : 0; if (e) light.position.copy(e.position); });
+    this.pool.forEach((light, i) => { const e = chosen[i]; light.visible = !!e; light.intensity = e ? 4 : 0; if (e) light.position.copy(e.position); });
   }
   dispose() {
     this.root.clear(); this.emitters = []; this.pool = []; this.glowMaterial.dispose(); this.glowTexture.dispose();
